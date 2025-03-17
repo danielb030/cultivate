@@ -1,5 +1,6 @@
-import { PlusCircle, Facebook, Instagram, Twitter } from "lucide-react";
+import { Facebook, Instagram, Twitter } from "lucide-react";
 import { Link } from "wouter";
+import { LogoWithText } from "./logo";
 
 export default function Footer() {
   return (
@@ -8,8 +9,7 @@ export default function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
             <div className="flex items-center">
-              <PlusCircle className="h-8 w-8 text-primary-600" />
-              <span className="ml-2 text-2xl font-bold text-primary-600">Cultivate</span>
+              <LogoWithText className="text-primary-600" />
             </div>
             <p className="text-neutral-500 text-base">
               Helping parents build stronger connections and foster exceptional futures for their children.
