@@ -20,8 +20,8 @@ export function Logo({ className, size = "md" }: LogoProps) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect x="45" y="40" width="10" height="60" fill="currentColor" />
-      <path d="M38 35C38 40 45 40 50 30C55 40 62 40 62 35C62 20 50 15 50 15C50 15 38 20 38 35Z" fill="currentColor" />
-      <path d="M38 35C38 30 45 30 50 20C55 30 62 30 62 35C62 50 50 45 50 45C50 45 38 50 38 35Z" fill="currentColor" className="text-primary-200" />
+      <path d="M30 35C30 25 45 15 50 15C55 15 70 25 70 35C70 45 55 40 50 40C45 40 30 45 30 35Z" fill="currentColor" />
+      <path d="M30 35C30 45 45 35 50 35C55 35 70 45 70 35C70 25 55 30 50 30C45 30 30 25 30 35Z" fill="currentColor" className="text-primary-200" />
     </svg>
   );
 }
