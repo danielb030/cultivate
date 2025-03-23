@@ -190,7 +190,7 @@ export default function Dashboard() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-gray-900">Ask a Question</h3>
                 <p className="mt-2 text-base text-gray-500">
-                  Explore better ways to communicate with your children. Get thoughtful insights on family dynamics.
+                  Raise Your Standards for communication and action. Transform your family conversations.
                 </p>
                 <Button 
                   className="mt-6 w-full"
@@ -211,7 +211,7 @@ export default function Dashboard() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-gray-900">Record a Session</h3>
                 <p className="mt-2 text-base text-gray-500">
-                  Record a conversation with your children and receive analysis and insights to improve communication.
+                  Raise Your Standards through meaningful dialogue. Transform everyday conversations into growth opportunities.
                 </p>
                 <Button 
                   className="mt-6 w-full"
@@ -243,7 +243,7 @@ export default function Dashboard() {
           <DialogHeader>
             <DialogTitle>Ask a Parenting Question</DialogTitle>
             <p className="text-sm text-gray-500 mt-2">
-              Explore thoughtful approaches to family communication challenges.
+              Raise Your Standards for communication and action in your family life.
             </p>
           </DialogHeader>
           
@@ -365,7 +365,7 @@ export default function Dashboard() {
           <DialogHeader>
             <DialogTitle>Record a Conversation</DialogTitle>
             <p className="text-sm text-gray-500 mt-2">
-              Record a meaningful conversation with your child or children. Select a topic below if you need help getting started.
+              Raise Your Standards by capturing impactful moments with your children. Choose a topic below to elevate your conversation.
             </p>
           </DialogHeader>
           
