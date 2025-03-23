@@ -79,7 +79,13 @@ export default function RecordingDetail() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, "MMMM d, yyyy") + " at " + format(date, "h:mm a");
+    const year = date.getFullYear();
+    const month = date.toLocaleString('en-US', { month: 'long' });
+    const day = date.getDate();
+    const hours = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = date.getHours() >= 12 ? 'pm' : 'am';
+    return `${month} ${day}, ${year} at ${hours}:${minutes} ${ampm}`;
   };
 
   if (!match) {

@@ -145,7 +145,16 @@ export default function Dashboard() {
   const handleRecordingComplete = (audioBlob: Blob, duration: number) => {
     setRecordingBlob(audioBlob);
     setRecordingDuration(duration);
-    setRecordingTitle(`Recording ${format(new Date(), "MMM d, yyyy")} at ${format(new Date(), "h:mm a")}`);
+    
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const day = date.getDate();
+    const hours = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = date.getHours() >= 12 ? 'pm' : 'am';
+    
+    setRecordingTitle(`Recording ${month} ${day}, ${year} at ${hours}:${minutes} ${ampm}`);
     setRecordDialogOpen(false);
     setUploadDialogOpen(true);
   };
@@ -166,7 +175,13 @@ export default function Dashboard() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, "MMM d, yyyy") + " at " + format(date, "h:mm a");
+    const year = date.getFullYear();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const day = date.getDate();
+    const hours = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = date.getHours() >= 12 ? 'pm' : 'am';
+    return `${month} ${day}, ${year} at ${hours}:${minutes} ${ampm}`;
   };
 
   return (
