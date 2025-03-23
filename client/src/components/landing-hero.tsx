@@ -20,7 +20,8 @@ interface LandingHeroProps {
 
 export function LandingHero({ 
   onRecordingComplete, 
-  onAudioUpload, 
+  onAudioUpload,
+  onTextUpload,
   isUploading 
 }: LandingHeroProps) {
   const [askQuestionOpen, setAskQuestionOpen] = useState(false);
@@ -127,21 +128,7 @@ export function LandingHero({
                       </div>
                     </TabsContent>
                     <TabsContent value="text">
-                      <div className="space-y-3">
-                        <Label htmlFor="title">Conversation Title</Label>
-                        <Input id="title" placeholder="e.g., Dinnertime Discussion" />
-                        <Label htmlFor="text">Transcript</Label>
-                        <Textarea 
-                          id="text" 
-                          placeholder="Paste or type your conversation transcript here..." 
-                          rows={6} 
-                        />
-                        <div className="pt-2">
-                          <Button className="w-full" disabled={isUploading}>
-                            Analyze Text
-                          </Button>
-                        </div>
-                      </div>
+                      <UploadText onUpload={onTextUpload} isUploading={isUploading} />
                     </TabsContent>
                   </Tabs>
                 </CardContent>

@@ -79,6 +79,41 @@ export default function Dashboard() {
       });
     },
   });
+  
+  // Text transcript upload mutation
+  const textUploadMutation = useMutation({
+    mutationFn: async ({ title, text }: { title: string; text: string }) => {
+      const response = await fetch("/api/text-analysis", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, text }),
+        credentials: "include",
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to process text transcript");
+      }
+      
+      return await response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/recordings"] });
+      toast({
+        title: "Transcript analyzed",
+        description: "Your conversation transcript has been analyzed successfully.",
+      });
+    },
+    onError: (error) => {
+      console.error("Text analysis error:", error);
+      toast({
+        title: "Analysis failed",
+        description: "There was an error analyzing your transcript. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
 
   // Delete recording mutation
   const deleteMutation = useMutation({
@@ -101,6 +136,10 @@ export default function Dashboard() {
 
   const handleFileUpload = async (file: File, title: string) => {
     uploadMutation.mutate({ file, title });
+  };
+  
+  const handleTextUpload = async (title: string, text: string) => {
+    textUploadMutation.mutate({ title, text });
   };
 
   const handleRecordingComplete = (audioBlob: Blob, duration: number) => {
@@ -136,7 +175,8 @@ export default function Dashboard() {
       <LandingHero 
         onRecordingComplete={handleRecordingComplete}
         onAudioUpload={handleFileUpload}
-        isUploading={uploadMutation.isPending}
+        onTextUpload={handleTextUpload}
+        isUploading={uploadMutation.isPending || textUploadMutation.isPending}
       />
 
       {/* Recent Recordings */}

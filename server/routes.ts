@@ -198,8 +198,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         // Create a simplified transcript object
         const segments = text.split('\n')
-          .filter(line => line.trim())
-          .map((line, index) => {
+          .filter((line: string) => line.trim())
+          .map((line: string, index: number) => {
             return {
               id: index + 1,
               speaker: line.toLowerCase().includes("parent") ? "Parent" : "Child",
