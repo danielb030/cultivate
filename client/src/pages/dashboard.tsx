@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { PlusCircle, Cloud, MoreHorizontal, Share2, Edit, Trash2, ChevronDown, AlertCircle } from "lucide-react";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { getAudioDuration } from "@/lib/audio-utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -22,6 +23,7 @@ export default function Dashboard() {
   const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null);
   const [recordingTitle, setRecordingTitle] = useState("");
   const [recordingDuration, setRecordingDuration] = useState(0);
+  const [showRecorder, setShowRecorder] = useState(false);
   const { toast } = useToast();
 
   // Fetch recordings (for functionality only)
@@ -359,18 +361,85 @@ export default function Dashboard() {
         </DialogContent>
       </Dialog>
 
-      {/* Record Dialog */}
+      {/* Session Dialog */}
       <Dialog open={recordDialogOpen} onOpenChange={setRecordDialogOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>Record a Conversation</DialogTitle>
+            <DialogTitle>Session Options</DialogTitle>
             <p className="text-sm text-gray-500 mt-2">
-              Raise Your Standards by capturing impactful moments with your children. Choose a topic below to elevate your conversation.
+              Raise Your Standards by capturing and analyzing meaningful conversations with your children.
             </p>
           </DialogHeader>
           
-          {/* Topics Section */}
-          <div className="mt-4 mb-5">
+          <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {/* Upload Existing Recording Option */}
+            <div className="rounded-md border border-gray-200 p-4 hover:border-primary-300 hover:bg-gray-50 transition-colors">
+              <div className="mb-4 flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+              </div>
+              <h3 className="text-center text-base font-medium mb-2">Upload Recording</h3>
+              <p className="text-xs text-gray-500 text-center mb-4">
+                Upload an existing audio or video recording of a conversation with your child.
+              </p>
+              <div className="flex justify-center">
+                <label htmlFor="audio-upload" className="cursor-pointer inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-primary-600 bg-white border border-primary-300 rounded-md shadow-sm hover:bg-primary-50">
+                  Upload File
+                  <input
+                    id="audio-upload"
+                    type="file"
+                    accept="audio/*,video/*"
+                    className="sr-only"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        getAudioDuration(file).then((duration) => {
+                          setRecordingDuration(duration);
+                          setRecordingTitle(`Uploaded Session ${new Date().toLocaleDateString()}`);
+                          
+                          // Create a blob from the file
+                          const reader = new FileReader();
+                          reader.onload = (e) => {
+                            const blob = new Blob([e.target?.result as ArrayBuffer], { type: file.type });
+                            setRecordingBlob(blob);
+                            setRecordDialogOpen(false);
+                          };
+                          reader.readAsArrayBuffer(file);
+                        });
+                      }
+                    }}
+                  />
+                </label>
+              </div>
+            </div>
+            
+            {/* Start New Recording Option */}
+            <div className="rounded-md border border-gray-200 p-4 hover:border-primary-300 hover:bg-gray-50 transition-colors">
+              <div className="mb-4 flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                </svg>
+              </div>
+              <h3 className="text-center text-base font-medium mb-2">Record New Session</h3>
+              <p className="text-xs text-gray-500 text-center mb-4">
+                Start a new recording session to capture a conversation with your child.
+              </p>
+              <div className="flex justify-center">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowRecorder(true);
+                  }}
+                >
+                  Start Recording
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          {/* Suggested Topics */}
+          <div className="mt-6 border-t border-gray-200 pt-5">
             <h4 className="text-sm font-medium text-gray-700 mb-3">Suggested Conversation Topics:</h4>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {[
@@ -397,17 +466,36 @@ export default function Dashboard() {
               ))}
             </div>
           </div>
-          
-          <div className="border-t border-gray-200 pt-5 mt-3">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Recording Controls:</h4>
-            <div className="grid place-items-center gap-4">
-              <Recorder onRecordingComplete={handleRecordingComplete} />
+        </DialogContent>
+      </Dialog>
+      
+      {/* Recording Modal */}
+      <Dialog open={showRecorder} onOpenChange={setShowRecorder}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Record Conversation</DialogTitle>
+            <p className="text-sm text-gray-500 mt-2">
+              Capture a meaningful conversation with your children. Remember to get consent before recording.
+            </p>
+          </DialogHeader>
+          <div className="grid place-items-center gap-4 py-4">
+            <Recorder onRecordingComplete={(blob, duration) => {
+              setRecordingBlob(blob);
+              setRecordingDuration(duration);
               
-              <p className="text-xs text-gray-500 mt-2 text-center">
-                Remember to get consent from everyone involved before recording. The recording will be analyzed to provide 
-                communication insights and suggestions.
-              </p>
-            </div>
+              const date = new Date();
+              const month = date.toLocaleString('en-US', { month: 'short' });
+              const day = date.getDate();
+              const year = date.getFullYear();
+              
+              setRecordingTitle(`Family Session ${month} ${day}, ${year}`);
+              setShowRecorder(false);
+              setRecordDialogOpen(false);
+            }} />
+            
+            <p className="text-xs text-gray-500 mt-2 text-center">
+              The recording will be analyzed to provide communication insights and suggestions to help raise your standards.
+            </p>
           </div>
         </DialogContent>
       </Dialog>
