@@ -190,7 +190,7 @@ export default function Dashboard() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-gray-900">Ask a Question</h3>
                 <p className="mt-2 text-base text-gray-500">
-                  Need advice on communication challenges with your child? Get expert guidance on specific situations.
+                  Explore better ways to communicate with your children. Get thoughtful insights on family dynamics.
                 </p>
                 <Button 
                   className="mt-6 w-full"
@@ -243,7 +243,7 @@ export default function Dashboard() {
           <DialogHeader>
             <DialogTitle>Ask a Parenting Question</DialogTitle>
             <p className="text-sm text-gray-500 mt-2">
-              Get expert guidance on communication challenges with your children.
+              Explore thoughtful approaches to family communication challenges.
             </p>
           </DialogHeader>
           
