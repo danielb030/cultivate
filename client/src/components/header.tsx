@@ -23,8 +23,11 @@ export default function Header() {
         <div className="flex items-center">
           <div className="flex items-center flex-shrink-0">
             <Link href="/">
-              <a className="flex items-center">
-                <LogoWithText className="text-primary-600" />
+              <a className="flex flex-col">
+                <div className="flex items-center">
+                  <LogoWithText className="text-primary-600" />
+                </div>
+                <span className="text-sm font-medium text-neutral-600 mt-1">Decode Everyday Moments. Establish Permanent Legacy.</span>
               </a>
             </Link>
           </div>
@@ -116,31 +119,38 @@ export default function Header() {
       <Dialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>How to use Cultivate</DialogTitle>
+            <DialogTitle>Cultivate: Decode Everyday Moments. Establish Permanent Legacy.</DialogTitle>
             <DialogDescription>
-              Cultivate helps you improve your parenting through conversation analysis.
+              Improve your parenting by analyzing family interactions and gaining valuable insights.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <h3 className="font-medium text-sm">Recording Conversations</h3>
+              <h3 className="font-medium text-sm">Improving Your Parenting</h3>
               <p className="text-sm text-gray-500">
-                Use the "Start Recording" button to capture conversations with your children. 
-                Alternatively, upload pre-recorded audio files.
+                Just like businesses record calls "for training purposes," record your family interactions 
+                to gain deeper insights into how you communicate with your children.
               </p>
             </div>
             <div>
-              <h3 className="font-medium text-sm">Getting Insights</h3>
+              <h3 className="font-medium text-sm">Multiple Media Options</h3>
               <p className="text-sm text-gray-500">
-                After uploading, we'll transcribe and analyze your conversation to provide 
-                helpful parenting tips and insights.
+                Upload audio, video, or written transcripts of family interactions. Capture moments like 
+                handling conflicts, important conversations, or daily routines.
               </p>
             </div>
             <div>
-              <h3 className="font-medium text-sm">Privacy</h3>
+              <h3 className="font-medium text-sm">Real-World Example</h3>
               <p className="text-sm text-gray-500">
-                Your recordings are securely stored and only accessible to you. We prioritize 
-                the privacy and security of your family conversations.
+                A father who recorded a difficult interaction about screen time gained insight into his approach
+                after reviewing the conversation, helping him improve future interactions.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-medium text-sm">Growth Mindset</h3>
+              <p className="text-sm text-gray-500">
+                "Fool me once, shame on you. Fool me twice, shame on me." Learn from each interaction
+                to continuously improve your parenting skills and establish a permanent legacy.
               </p>
             </div>
           </div>

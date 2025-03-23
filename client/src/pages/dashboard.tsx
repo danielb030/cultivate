@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Recorder } from "@/components/ui/recorder";
 import { UploadAudio } from "@/components/ui/upload-audio";
+import { LandingHero } from "@/components/landing-hero";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 
@@ -132,39 +133,11 @@ export default function Dashboard() {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-primary-600">
-        <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
-            <span className="block">Capture moments that matter</span>
-          </h1>
-          <p className="mt-3 max-w-md mx-auto text-lg text-primary-100 sm:text-xl md:mt-5 md:max-w-3xl">
-            Upload conversations with your children to gain insights and improve parenting skills
-          </p>
-          <div className="mt-6 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-            <div className="rounded-md shadow">
-              <Button 
-                onClick={() => setRecordDialogOpen(true)}
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent-500 hover:bg-accent-600 md:py-4 md:text-lg md:px-10"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                </svg>
-                Start Recording
-              </Button>
-            </div>
-            <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-              <Button 
-                onClick={() => setUploadDialogOpen(true)}
-                variant="outline"
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-neutral-50 md:py-4 md:text-lg md:px-10"
-              >
-                <Cloud className="h-6 w-6 mr-2" />
-                Upload Audio
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <LandingHero 
+        onRecordingComplete={handleRecordingComplete}
+        onAudioUpload={handleFileUpload}
+        isUploading={uploadMutation.isPending}
+      />
 
       {/* Recent Recordings */}
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
