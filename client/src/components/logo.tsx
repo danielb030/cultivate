@@ -19,9 +19,32 @@ export function Logo({ className, size = "md" }: LogoProps) {
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect x="45" y="40" width="10" height="60" fill="currentColor" />
-      <path d="M30 35C30 25 45 15 50 15C55 15 70 25 70 35C70 45 55 40 50 40C45 40 30 45 30 35Z" fill="currentColor" />
-      <path d="M30 35C30 45 45 35 50 35C55 35 70 45 70 35C70 25 55 30 50 30C45 30 30 25 30 35Z" fill="currentColor" className="text-primary-200" />
+      {/* Stem */}
+      <rect x="48" y="45" width="4" height="40" fill="#2E7D32" />
+      
+      {/* Left Leaf */}
+      <path 
+        d="M30 30C30 30 35 40 48 45C48 45 45 25 30 30Z" 
+        fill="#4CAF50" 
+      />
+      
+      {/* Right Leaf */}
+      <path 
+        d="M70 30C70 30 65 40 52 45C52 45 55 25 70 30Z" 
+        fill="#4CAF50" 
+      />
+      
+      {/* Small Left Leaf */}
+      <path 
+        d="M35 42C35 42 40 45 48 45C48 45 45 35 35 42Z" 
+        fill="#66BB6A" 
+      />
+      
+      {/* Small Right Leaf */}
+      <path 
+        d="M65 42C65 42 60 45 52 45C52 45 55 35 65 42Z" 
+        fill="#66BB6A" 
+      />
     </svg>
   );
 }
