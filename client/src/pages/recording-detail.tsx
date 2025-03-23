@@ -79,7 +79,7 @@ export default function RecordingDetail() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, "MMMM d, yyyy 'at' h:mm a");
+    return format(date, "MMMM d, yyyy") + " at " + format(date, "h:mm a");
   };
 
   if (!match) {

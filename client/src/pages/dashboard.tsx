@@ -145,7 +145,7 @@ export default function Dashboard() {
   const handleRecordingComplete = (audioBlob: Blob, duration: number) => {
     setRecordingBlob(audioBlob);
     setRecordingDuration(duration);
-    setRecordingTitle(`Recording ${format(new Date(), "MMM d, yyyy 'at' h:mm a")}`);
+    setRecordingTitle(`Recording ${format(new Date(), "MMM d, yyyy")} at ${format(new Date(), "h:mm a")}`);
     setRecordDialogOpen(false);
     setUploadDialogOpen(true);
   };
@@ -166,7 +166,7 @@ export default function Dashboard() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, "MMM d, yyyy 'at' h:mm a");
+    return format(date, "MMM d, yyyy") + " at " + format(date, "h:mm a");
   };
 
   return (
