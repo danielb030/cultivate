@@ -25,7 +25,7 @@ export default function Dashboard() {
   const { toast } = useToast();
 
   // Fetch recordings
-  const { data: recordings, isLoading, isError } = useQuery({
+  const { data: recordings = [], isLoading, isError } = useQuery<any[]>({
     queryKey: ["/api/recordings"],
     refetchInterval: false,
     refetchOnWindowFocus: false,

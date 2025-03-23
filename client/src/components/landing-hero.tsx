@@ -43,6 +43,11 @@ export function LandingHero({
                 <span className="block">Improve your</span>{" "}
                 <span className="block text-primary-600">parenting journey</span>
               </h1>
+              <h2 className="mt-2 text-2xl font-bold text-gray-700">
+                <span className="block bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">
+                  Decode Everyday Moments. Establish Permanent Legacy.
+                </span>
+              </h2>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                 Upload family conversations, receive transcriptions, and get personalized insights to enhance your parenting skills. Learn from every interaction to build a lasting legacy.
               </p>
@@ -91,16 +96,55 @@ export function LandingHero({
             <TabsContent value="upload" className="mt-4">
               <Card>
                 <CardHeader>
-                  <CardTitle>Upload Audio or Video</CardTitle>
+                  <CardTitle>Upload Media or Text</CardTitle>
                   <CardDescription>
-                    Analyze pre-recorded family conversations.
+                    Analyze pre-recorded family conversations or written transcripts.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <UploadAudio onUpload={onAudioUpload} isUploading={isUploading} />
+                  <Tabs defaultValue="audio">
+                    <TabsList className="mb-4 grid w-full grid-cols-3">
+                      <TabsTrigger value="audio">Audio</TabsTrigger>
+                      <TabsTrigger value="video">Video</TabsTrigger>
+                      <TabsTrigger value="text">Text</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="audio">
+                      <UploadAudio onUpload={onAudioUpload} isUploading={isUploading} />
+                    </TabsContent>
+                    <TabsContent value="video">
+                      <div className="p-4 border-2 border-dashed rounded-md border-gray-300 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mx-auto h-12 w-12 text-gray-400">
+                          <path d="M17 5c0-1.7-1.3-3-3-3s-3 1.3-3 3c0 .8.3 1.5.8 2H11c-1.7 0-3 1.3-3 3v1" />
+                          <path d="M13 22H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3" />
+                          <path d="m18 22 4-4" />
+                          <path d="m15 19 7 0" />
+                        </svg>
+                        <p className="mt-1 text-sm text-gray-600">
+                          Coming soon! Video upload will be available in a future update.
+                        </p>
+                      </div>
+                    </TabsContent>
+                    <TabsContent value="text">
+                      <div className="space-y-3">
+                        <Label htmlFor="title">Conversation Title</Label>
+                        <Input id="title" placeholder="e.g., Dinnertime Discussion" />
+                        <Label htmlFor="text">Transcript</Label>
+                        <Textarea 
+                          id="text" 
+                          placeholder="Paste or type your conversation transcript here..." 
+                          rows={6} 
+                        />
+                        <div className="pt-2">
+                          <Button className="w-full" disabled={isUploading}>
+                            Analyze Text
+                          </Button>
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
                 </CardContent>
                 <CardFooter className="text-sm text-gray-500">
-                  Upload existing recordings to receive personalized parenting insights.
+                  Upload existing conversations in multiple formats to receive personalized parenting insights.
                 </CardFooter>
               </Card>
             </TabsContent>
