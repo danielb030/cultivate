@@ -195,6 +195,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Analyze the text transcript
         console.log("Analyzing text transcript...");
         const analysis = await analyzeTextTranscript(text);
+        console.log("Analysis received:", JSON.stringify(analysis, null, 2).substring(0, 200) + "...");
         
         // Create a simplified transcript object
         const segments = text.split('\n')
@@ -214,12 +215,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           segments
         };
         
+        console.log("Updating recording with transcript and analysis...");
         // Update the recording with the transcript and analysis
         const updatedRecording = await storage.updateRecording(recording.id, {
           transcript: JSON.stringify(transcript),
           analysis
         });
         
+        console.log("Recording updated successfully, returning to client");
         res.status(201).json(updatedRecording);
       } catch (processingError: any) {
         console.error("Text processing error:", processingError);
