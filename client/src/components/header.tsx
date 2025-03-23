@@ -12,7 +12,7 @@ export default function Header() {
 
   const navItems = [
     { name: "Dashboard", path: "/" },
-    { name: "Recordings", path: "/" },
+    { name: "Recordings", path: "/recordings" },
     { name: "Insights", path: "/insights" },
     { name: "Tips", path: "/tips" },
   ];
@@ -22,25 +22,25 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <div className="flex items-center">
           <div className="flex items-center flex-shrink-0">
-            <Link href="/">
-              <a className="flex flex-col">
-                <div className="flex items-center">
-                  <LogoWithText className="text-primary-600" />
-                </div>
-                <span className="text-sm font-medium text-neutral-600 mt-1">Decode Everyday Moments. Establish Permanent Legacy.</span>
-              </a>
+            <Link href="/" className="flex flex-col">
+              <div className="flex items-center">
+                <LogoWithText className="text-primary-600" />
+              </div>
+              <span className="text-sm font-medium text-neutral-600 mt-1">Decode Everyday Moments. Establish Permanent Legacy.</span>
             </Link>
           </div>
         </div>
         
         <nav className="hidden md:flex space-x-10">
           {navItems.map((item) => (
-            <Link key={item.name} href={item.path}>
-              <a className={`text-base font-medium ${
+            <Link 
+              key={item.name} 
+              href={item.path}
+              className={`text-base font-medium ${
                 location === item.path ? "text-primary-600" : "text-neutral-700 hover:text-primary-600"
-              }`}>
-                {item.name}
-              </a>
+              }`}
+            >
+              {item.name}
             </Link>
           ))}
         </nav>
@@ -87,17 +87,17 @@ export default function Header() {
         <div className="md:hidden border-t border-neutral-200 py-2">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col space-y-1">
             {navItems.map((item) => (
-              <Link key={item.name} href={item.path}>
-                <a 
-                  className={`px-3 py-2 rounded-md text-base font-medium ${
-                    location === item.path 
-                      ? "text-primary-600 bg-primary-50" 
-                      : "text-neutral-700 hover:text-primary-600 hover:bg-primary-50"
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
+              <Link 
+                key={item.name} 
+                href={item.path}
+                className={`px-3 py-2 rounded-md text-base font-medium ${
+                  location === item.path 
+                    ? "text-primary-600 bg-primary-50" 
+                    : "text-neutral-700 hover:text-primary-600 hover:bg-primary-50"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
               </Link>
             ))}
             <Button
