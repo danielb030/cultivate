@@ -1,7 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { transcribeAudio, analyzeTranscript } from "./openai";
+import { transcribeAudio, analyzeTranscript, analyzeTextTranscript } from "./openai";
 import multer from "multer";
 import { z } from "zod";
 import { insertRecordingSchema, updateRecordingSchema } from "@shared/schema";
@@ -168,6 +168,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.send(audioBuffer);
     } catch (error) {
       res.status(500).json({ message: "Failed to retrieve audio file" });
+    }
+  });
+
+  // Upload a text transcript for analysis
+  app.post("/api/text-analysis", async (req: Request, res: Response) => {
+    try {
+      const { title, text } = req.body;
+      
+      if (!title || !text) {
+        return res.status(400).json({ message: "Title and text are required" });
+      }
+
+      // Create a placeholder audio path (since we don't have audio)
+      const textId = Date.now().toString();
+      const audioPath = `text-${textId}`;
+      
+      // Create the recording
+      const recording = await storage.createRecording({
+        title,
+        duration: 0, // No actual duration for text
+        audioPath
+      });
+      
+      try {
+        // Analyze the text transcript
+        console.log("Analyzing text transcript...");
+        const analysis = await analyzeTextTranscript(text);
+        
+        // Create a simplified transcript object
+        const segments = text.split('\n')
+          .filter(line => line.trim())
+          .map((line, index) => {
+            return {
+              id: index + 1,
+              speaker: line.toLowerCase().includes("parent") ? "Parent" : "Child",
+              text: line,
+              start: index,
+              end: index + 1
+            };
+          });
+        
+        const transcript = {
+          text,
+          segments
+        };
+        
+        // Update the recording with the transcript and analysis
+        const updatedRecording = await storage.updateRecording(recording.id, {
+          transcript: JSON.stringify(transcript),
+          analysis
+        });
+        
+        res.status(201).json(updatedRecording);
+      } catch (processingError: any) {
+        console.error("Text processing error:", processingError);
+        res.status(201).json({
+          ...recording,
+          processingError: "Text analysis failed, but recording was saved: " + 
+            (processingError.message || String(processingError))
+        });
+      }
+    } catch (error) {
+      console.error("Text upload error:", error);
+      res.status(500).json({ message: "Failed to process text transcript" });
     }
   });
 

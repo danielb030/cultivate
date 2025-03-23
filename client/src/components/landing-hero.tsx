@@ -8,11 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { UploadAudio } from "@/components/ui/upload-audio";
+import { UploadText } from "@/components/ui/upload-text";
 import { Recorder } from "@/components/ui/recorder";
 
 interface LandingHeroProps {
   onRecordingComplete: (audioBlob: Blob, duration: number) => void;
   onAudioUpload: (file: File, title: string, description?: string) => Promise<void>;
+  onTextUpload: (title: string, text: string) => Promise<void>;
   isUploading: boolean;
 }
 

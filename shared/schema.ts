@@ -61,13 +61,41 @@ export type Analysis = {
     openEndedQuestions: number;
     activeListening: number;
     emotionalSupport: number;
+    patientResponse: number;
+    positiveReinforcement: number;
+  };
+  parentingStyle: {
+    authoritative: number;
+    permissive: number;
+    authoritarian: number;
+    uninvolved: number;
+  };
+  sentimentAnalysis: {
+    parent: {
+      positive: number;
+      neutral: number;
+      negative: number;
+    };
+    child: {
+      positive: number;
+      neutral: number;
+      negative: number;
+    };
   };
   growthAreas: { 
     area: string;
     description: string;
     priority: "High" | "Medium" | "Low";
+    suggestedResources?: string[];
   }[];
   suggestions: string[];
+  longTermImpacts: string[];
   summary: string;
   tags: string[];
+  developmentalInsights?: {
+    ageAppropriate: boolean;
+    cognitiveStimulation: number;
+    emotionalDevelopment: number;
+    keyMilestones?: string[];
+  };
 };
