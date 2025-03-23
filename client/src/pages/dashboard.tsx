@@ -154,9 +154,9 @@ export default function Dashboard() {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const ampm = date.getHours() >= 12 ? 'pm' : 'am';
     
-    setRecordingTitle(`Recording ${month} ${day}, ${year} at ${hours}:${minutes} ${ampm}`);
+    setRecordingTitle(`Family Session ${month} ${day}, ${year} at ${hours}:${minutes} ${ampm}`);
     setRecordDialogOpen(false);
-    setUploadDialogOpen(true);
+    // The recording dialog will appear automatically since recordingBlob is not null
   };
 
   const handleSaveRecording = () => {
@@ -169,37 +169,158 @@ export default function Dashboard() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <LandingHero 
-        onRecordingComplete={handleRecordingComplete}
-        onAudioUpload={handleFileUpload}
-        onTextUpload={handleTextUpload}
-        isUploading={uploadMutation.isPending || textUploadMutation.isPending}
-      />
-      
-      {/* Clean Dashboard - Recent Recordings section has been moved to the Recordings page */}
+      {/* Main Action Buttons */}
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
             Improve Your Family Communications
           </h2>
-          <p className="mt-4 text-lg text-gray-500">
-            Get started by recording a conversation or uploading an audio file via the options above.
-            View your existing recordings in the "Recordings" tab.
+          <p className="mt-6 text-lg text-gray-500">
+            Capture, analyze, and enhance your family conversations. Get personalized insights to strengthen your parent-child relationships.
           </p>
-          <div className="mt-8 flex justify-center">
+          
+          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
+            {/* Question Button */}
+            <div className="relative bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+              <div className="p-8">
+                <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-primary-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="mt-6 text-xl font-semibold text-gray-900">Ask a Question</h3>
+                <p className="mt-2 text-base text-gray-500">
+                  Need advice on communication challenges with your child? Get expert guidance on specific situations.
+                </p>
+                <Button 
+                  className="mt-6 w-full"
+                  onClick={() => setUploadDialogOpen(true)}
+                >
+                  Ask a Question
+                </Button>
+              </div>
+            </div>
+            
+            {/* Session Button */}
+            <div className="relative bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+              <div className="p-8">
+                <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-primary-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  </svg>
+                </div>
+                <h3 className="mt-6 text-xl font-semibold text-gray-900">Record a Session</h3>
+                <p className="mt-2 text-base text-gray-500">
+                  Record a conversation with your children and receive analysis and insights to improve communication.
+                </p>
+                <Button 
+                  className="mt-6 w-full"
+                  onClick={() => setRecordDialogOpen(true)}
+                >
+                  Start Session
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-10">
             <Link 
               href="/recordings" 
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+              className="inline-flex items-center text-base font-medium text-primary-600 hover:text-primary-700"
             >
-              View All Recordings
+              View Previous Recordings
+              <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Title & Description Dialog (after recording) */}
+      {/* Ask a Question Dialog */}
       <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Ask a Parenting Question</DialogTitle>
+            <p className="text-sm text-gray-500 mt-2">
+              Get expert guidance on communication challenges with your children.
+            </p>
+          </DialogHeader>
+          
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <label htmlFor="question-title" className="text-sm font-medium">
+                Question Title
+              </label>
+              <input
+                id="question-title"
+                type="text"
+                value={recordingTitle}
+                onChange={(e) => setRecordingTitle(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                placeholder="E.g., 'How to discuss screen time limits'"
+              />
+            </div>
+            
+            <div className="grid gap-2">
+              <label htmlFor="question-details" className="text-sm font-medium">
+                Question Details
+              </label>
+              <textarea
+                id="question-details"
+                rows={6}
+                className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                placeholder="Describe your situation and what you need help with. Include your child's age and relevant context."
+              ></textarea>
+            </div>
+            
+            {/* Common Questions for Inspiration */}
+            <div className="mt-2">
+              <p className="text-xs font-medium text-gray-500 mb-2">Popular questions for inspiration:</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "How to handle tantrums?",
+                  "Responding to back talk",
+                  "Discussing difficult topics",
+                  "Helping with anxiety",
+                  "Technology boundaries"
+                ].map((q) => (
+                  <button 
+                    key={q}
+                    className="inline-flex text-xs bg-gray-100 hover:bg-gray-200 text-gray-800 px-2 py-1 rounded"
+                    onClick={() => setRecordingTitle(q)}
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={() => setUploadDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              disabled={!recordingTitle || textUploadMutation.isPending}
+              onClick={() => {
+                const textarea = document.getElementById('question-details') as HTMLTextAreaElement;
+                if (textarea && recordingTitle) {
+                  handleTextUpload(recordingTitle, textarea.value || "No details provided");
+                  setUploadDialogOpen(false);
+                }
+              }}
+            >
+              {textUploadMutation.isPending ? "Submitting..." : "Submit Question"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+      
+      {/* Title & Description Dialog (after recording) */}
+      <Dialog open={recordingBlob !== null} onOpenChange={(open) => {
+        if (!open) setRecordingBlob(null);
+      }}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Save Your Recording</DialogTitle>
@@ -225,7 +346,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setUploadDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setRecordingBlob(null)}>
               Cancel
             </Button>
             <Button
@@ -240,12 +361,53 @@ export default function Dashboard() {
 
       {/* Record Dialog */}
       <Dialog open={recordDialogOpen} onOpenChange={setRecordDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>Record a Conversation</DialogTitle>
+            <p className="text-sm text-gray-500 mt-2">
+              Record a meaningful conversation with your child or children. Select a topic below if you need help getting started.
+            </p>
           </DialogHeader>
-          <div className="grid place-items-center gap-6 py-4">
-            <Recorder onRecordingComplete={handleRecordingComplete} />
+          
+          {/* Topics Section */}
+          <div className="mt-4 mb-5">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Suggested Conversation Topics:</h4>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {[
+                { name: "Recent Argument", icon: "🔄" },
+                { name: "Sports Performance", icon: "🏅" },
+                { name: "Academic Achievement", icon: "📚" },
+                { name: "Goal Setting", icon: "🎯" },
+                { name: "Screen Time", icon: "📱" },
+                { name: "Friends & Relationships", icon: "👫" },
+              ].map((topic) => (
+                <button
+                  key={topic.name}
+                  className="flex items-center justify-center p-2 text-sm border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
+                  onClick={() => {
+                    toast({
+                      title: `Topic Selected: ${topic.name}`,
+                      description: "Use this as a starting point for your conversation.",
+                    });
+                  }}
+                >
+                  <span className="mr-1">{topic.icon}</span>
+                  <span>{topic.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-200 pt-5 mt-3">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Recording Controls:</h4>
+            <div className="grid place-items-center gap-4">
+              <Recorder onRecordingComplete={handleRecordingComplete} />
+              
+              <p className="text-xs text-gray-500 mt-2 text-center">
+                Remember to get consent from everyone involved before recording. The recording will be analyzed to provide 
+                communication insights and suggestions.
+              </p>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
