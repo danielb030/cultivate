@@ -223,41 +223,6 @@ export default function RecordingDetail() {
             </div>
           )}
 
-          {/* Transcript */}
-          {transcriptData && (
-            <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Transcript</h2>
-              <div className="space-y-6">
-                {transcriptData.segments.map((segment: any) => (
-                  <div key={segment.id} className="flex space-x-4">
-                    <div className="flex-shrink-0">
-                      <span className={`inline-flex items-center justify-center h-10 w-10 rounded-full ${
-                        segment.speaker === "Parent" ? "bg-primary-100" : "bg-secondary-100"
-                      }`}>
-                        <span className={`font-medium ${
-                          segment.speaker === "Parent" ? "text-primary-800" : "text-secondary-800"
-                        }`}>
-                          {segment.speaker.charAt(0)}
-                        </span>
-                      </span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center">
-                        <p className="font-medium text-gray-900">{segment.speaker}</p>
-                        <span className="ml-2 text-xs text-gray-500">
-                          {formatTime(segment.start)}
-                        </span>
-                      </div>
-                      <div className="mt-1 text-gray-700 text-base">
-                        {segment.text}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Analysis & Insights */}
           {recording.analysis && (
             <div>
@@ -378,6 +343,41 @@ export default function RecordingDetail() {
                   </CardContent>
                 </Card>
               )}
+            </div>
+          )}
+
+          {/* Transcript */}
+          {transcriptData && (
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold mb-4">Transcript</h2>
+              <div className="space-y-6">
+                {transcriptData.segments.map((segment: any) => (
+                  <div key={segment.id} className="flex space-x-4">
+                    <div className="flex-shrink-0">
+                      <span className={`inline-flex items-center justify-center h-10 w-10 rounded-full ${
+                        segment.speaker === "Parent" ? "bg-primary-100" : "bg-secondary-100"
+                      }`}>
+                        <span className={`font-medium ${
+                          segment.speaker === "Parent" ? "text-primary-800" : "text-secondary-800"
+                        }`}>
+                          {segment.speaker.charAt(0)}
+                        </span>
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center">
+                        <p className="font-medium text-gray-900">{segment.speaker}</p>
+                        <span className="ml-2 text-xs text-gray-500">
+                          {formatTime(segment.start)}
+                        </span>
+                      </div>
+                      <div className="mt-1 text-gray-700 text-base">
+                        {segment.text}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
