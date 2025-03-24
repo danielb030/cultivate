@@ -236,10 +236,13 @@ export default function Dashboard() {
               </svg>
             </Link>
             
-            <div className="mt-8 text-center">
-              <p className="text-sm italic text-gray-600 max-w-lg mx-auto">
-                "Instead of buying your children all the things you never had, you should teach them all the things you were never taught." — Bruce Lee
-              </p>
+            <div className="mt-10 text-center">
+              <blockquote className="px-6 py-5 border-l-4 border-primary-500 bg-primary-50 max-w-2xl mx-auto rounded-r-md">
+                <p className="text-base text-gray-700 font-medium italic">
+                  "Instead of buying your children all the things you never had, you should teach them all the things you were never taught."
+                </p>
+                <footer className="mt-2 text-sm text-gray-500 font-medium">— Bruce Lee</footer>
+              </blockquote>
             </div>
           </div>
         </div>
