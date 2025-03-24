@@ -26,7 +26,7 @@ export default function Header() {
               <div className="flex items-center">
                 <LogoWithText className="text-primary-600" />
               </div>
-              <span className="text-sm font-medium text-neutral-600 mt-1">Be their Guide as well as their Guardian. Establish Permanent Legacy.</span>
+              <span className="text-sm font-medium text-neutral-600 mt-1">Be their Guide as well as their Guardian.</span>
             </Link>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function Header() {
       <Dialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Cultivate: Be their Guide as well as their Guardian. Establish Permanent Legacy.</DialogTitle>
+            <DialogTitle>Cultivate: Be their Guide as well as their Guardian.</DialogTitle>
             <DialogDescription>
               Improve your parenting by analyzing family interactions and gaining valuable insights.
             </DialogDescription>
