@@ -344,8 +344,8 @@ export default function Dashboard() {
                   <p className="text-xs font-medium text-gray-500 mb-2">Popular questions for inspiration:</p>
                   <div className="flex flex-wrap gap-2">
                     {[
-                      "How to handle tantrums?",
-                      "Responding to back talk",
+                      "Supporting emotional regulation",
+                      "Encouraging respectful communication",
                       "Discussing difficult topics",
                       "Helping with anxiety",
                       "Technology boundaries"
