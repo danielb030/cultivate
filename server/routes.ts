@@ -51,8 +51,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Upload a new recording
   app.post("/api/recordings", upload.single("audio"), async (req: Request, res: Response) => {
     try {
-      // Validate request data
-      const recordingData = insertRecordingSchema.parse(JSON.parse(req.body.data || "{}"));
+      // Parse the request data first
+      const parsedData = JSON.parse(req.body.data || "{}");
+      
+      // Convert ISO date string to Date object if it exists
+      if (parsedData.recordedAt && typeof parsedData.recordedAt === 'string') {
+        parsedData.recordedAt = new Date(parsedData.recordedAt);
+      }
+      
+      // Make sure all required fields are present
+      if (!parsedData.title || parsedData.duration === undefined) {
+        return res.status(400).json({ 
+          message: "Invalid recording data", 
+          errors: ["Title and duration are required"] 
+        });
+      }
 
       if (!req.file) {
         return res.status(400).json({ message: "No audio file provided" });
@@ -64,10 +77,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.file.buffer
       );
 
-      // Create the recording
+      // Create the recording with the extracted data
       const recording = await storage.createRecording({
-        ...recordingData,
-        audioPath
+        title: parsedData.title,
+        duration: parsedData.duration,
+        recordedAt: parsedData.recordedAt || new Date(),
+        audioPath,
+        tags: parsedData.tags
       });
 
       // Process the audio file (transcribe and analyze)
@@ -184,11 +200,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const textId = Date.now().toString();
       const audioPath = `text-${textId}`;
       
-      // Create the recording
+      // Create the recording with the current timestamp
       const recording = await storage.createRecording({
         title,
         duration: 0, // No actual duration for text
-        audioPath
+        audioPath,
+        recordedAt: new Date() // Explicitly set the date
       });
       
       try {
