@@ -18,99 +18,77 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <header className="bg-white border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <div className="flex items-center flex-shrink-0">
-            <Link href="/" className="flex flex-col">
-              <div className="flex items-center">
-                <LogoWithText className="text-primary-600" />
-              </div>
-              <span className="text-sm font-medium text-neutral-600 mt-1">Be their Guide as well as their Guardian.</span>
-            </Link>
-          </div>
+          <Link href="/" className="flex flex-col items-start">
+            <LogoWithText className="text-primary-600" />
+            <span className="text-xs text-neutral-500 ml-10 -mt-1">Be their Guide as well as their Guardian.</span>
+          </Link>
         </div>
         
-        <nav className="hidden md:flex space-x-10">
+        <nav className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => (
             <Link 
               key={item.name} 
               href={item.path}
-              className={`text-base font-medium ${
-                location === item.path ? "text-primary-600" : "text-neutral-700 hover:text-primary-600"
+              className={`text-sm font-medium ${
+                location === item.path ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"
               }`}
             >
               {item.name}
             </Link>
           ))}
+          
+          <button 
+            onClick={() => setHelpDialogOpen(true)}
+            className="text-sm font-medium text-neutral-600 hover:text-primary-600"
+          >
+            <HelpCircle className="h-4 w-4" />
+          </button>
         </nav>
         
-        <div className="flex items-center space-x-4">
-          <Button
-            variant="outline"
-            className="hidden md:inline-flex items-center text-primary-600 bg-primary-50 hover:bg-primary-100"
-            onClick={() => setHelpDialogOpen(true)}
-          >
-            <HelpCircle className="h-5 w-5 mr-2" />
-            Help
-          </Button>
-          
-          <div className="relative flex-shrink-0 group">
-            <button
-              type="button"
-              className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-            >
-              <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-neutral-100">
-                <svg className="h-full w-full text-neutral-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </span>
-            </button>
-          </div>
-          
-          <button
-            type="button"
-            className="md:hidden p-2 rounded-md text-neutral-500 hover:text-neutral-600 focus:outline-none"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
-        </div>
+        <button
+          type="button"
+          className="md:hidden p-1.5 rounded-md text-neutral-500 hover:text-neutral-600 focus:outline-none"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
+        </button>
       </div>
       
       {/* Mobile menu, show/hide based on menu state */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-neutral-200 py-2">
+        <div className="md:hidden border-t border-neutral-100 py-2">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col space-y-1">
             {navItems.map((item) => (
               <Link 
                 key={item.name} 
                 href={item.path}
-                className={`px-3 py-2 rounded-md text-base font-medium ${
+                className={`px-3 py-2 text-sm font-medium ${
                   location === item.path 
-                    ? "text-primary-600 bg-primary-50" 
-                    : "text-neutral-700 hover:text-primary-600 hover:bg-primary-50"
+                    ? "text-primary-600" 
+                    : "text-neutral-600 hover:text-primary-600"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
-            <Button
-              variant="outline"
-              className="mt-2 justify-start"
+            <button
+              className="px-3 py-2 text-sm font-medium text-neutral-600 hover:text-primary-600 flex items-center"
               onClick={() => {
                 setMobileMenuOpen(false);
                 setHelpDialogOpen(true);
               }}
             >
-              <HelpCircle className="h-5 w-5 mr-2" />
+              <HelpCircle className="h-4 w-4 mr-2" />
               Help
-            </Button>
+            </button>
           </div>
         </div>
       )}
