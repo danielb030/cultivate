@@ -24,6 +24,8 @@ export default function Dashboard() {
   const [recordingTitle, setRecordingTitle] = useState("");
   const [recordingDuration, setRecordingDuration] = useState(0);
   const [showRecorder, setShowRecorder] = useState(false);
+  const [showUploadOption, setShowUploadOption] = useState(false);
+  const [selectedUploadFile, setSelectedUploadFile] = useState<File | null>(null);
   const { toast } = useToast();
 
   // Fetch recordings (for functionality only)
@@ -262,71 +264,164 @@ export default function Dashboard() {
           </DialogHeader>
           
           <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <label htmlFor="question-title" className="text-sm font-medium">
-                Question Title
-              </label>
-              <input
-                id="question-title"
-                type="text"
-                value={recordingTitle}
-                onChange={(e) => setRecordingTitle(e.target.value)}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                placeholder="E.g., 'How to discuss screen time limits'"
-              />
-            </div>
-            
-            <div className="grid gap-2">
-              <label htmlFor="question-details" className="text-sm font-medium">
-                Question Details
-              </label>
-              <textarea
-                id="question-details"
-                rows={6}
-                className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                placeholder="Describe your situation and what you need help with. Include your child's age and relevant context."
-              ></textarea>
-            </div>
-            
-            {/* Common Questions for Inspiration */}
-            <div className="mt-2">
-              <p className="text-xs font-medium text-gray-500 mb-2">Popular questions for inspiration:</p>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "How to handle tantrums?",
-                  "Responding to back talk",
-                  "Discussing difficult topics",
-                  "Helping with anxiety",
-                  "Technology boundaries"
-                ].map((q) => (
-                  <button 
-                    key={q}
-                    className="inline-flex text-xs bg-gray-100 hover:bg-gray-200 text-gray-800 px-2 py-1 rounded"
-                    onClick={() => setRecordingTitle(q)}
-                  >
-                    {q}
-                  </button>
-                ))}
+            {/* Tab interface for Ask Question or Upload Recording */}
+            <div className="border-b border-gray-200">
+              <div className="flex -mb-px space-x-8">
+                <button
+                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                    !showUploadOption ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+                  }`}
+                  onClick={() => setShowUploadOption(false)}
+                >
+                  Ask a Question
+                </button>
+                <button
+                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                    showUploadOption ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+                  }`}
+                  onClick={() => setShowUploadOption(true)}
+                >
+                  Upload a Session
+                </button>
               </div>
             </div>
+
+            {!showUploadOption ? (
+              <>
+                <div className="grid gap-2">
+                  <label htmlFor="question-title" className="text-sm font-medium">
+                    Question Title
+                  </label>
+                  <input
+                    id="question-title"
+                    type="text"
+                    value={recordingTitle}
+                    onChange={(e) => setRecordingTitle(e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    placeholder="E.g., 'How to discuss screen time limits'"
+                  />
+                </div>
+                
+                <div className="grid gap-2">
+                  <label htmlFor="question-details" className="text-sm font-medium">
+                    Question Details
+                  </label>
+                  <textarea
+                    id="question-details"
+                    rows={6}
+                    className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    placeholder="Describe your situation and what you need help with. Include your child's age and relevant context."
+                  ></textarea>
+                </div>
+                
+                {/* Common Questions for Inspiration */}
+                <div className="mt-2">
+                  <p className="text-xs font-medium text-gray-500 mb-2">Popular questions for inspiration:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "How to handle tantrums?",
+                      "Responding to back talk",
+                      "Discussing difficult topics",
+                      "Helping with anxiety",
+                      "Technology boundaries"
+                    ].map((q) => (
+                      <button 
+                        key={q}
+                        className="inline-flex text-xs bg-gray-100 hover:bg-gray-200 text-gray-800 px-2 py-1 rounded"
+                        onClick={() => setRecordingTitle(q)}
+                      >
+                        {q}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <label htmlFor="upload-title" className="text-sm font-medium">
+                    Session Title
+                  </label>
+                  <input
+                    id="upload-title"
+                    type="text"
+                    value={recordingTitle}
+                    onChange={(e) => setRecordingTitle(e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    placeholder="Enter a title for your recording"
+                  />
+                </div>
+                
+                <div className="flex items-center justify-center h-32 border-2 border-dashed border-gray-300 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors">
+                  <label htmlFor="dialog-audio-upload" className="cursor-pointer text-center">
+                    <div className="space-y-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary-600 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <span className="text-sm font-medium text-gray-600">Click to upload audio</span>
+                      <p className="text-xs text-gray-500">MP3, WAV or M4A up to 50MB</p>
+                    </div>
+                    <input
+                      id="dialog-audio-upload"
+                      type="file"
+                      accept="audio/*,video/*"
+                      className="sr-only"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setSelectedUploadFile(file);
+                          if (!recordingTitle) {
+                            setRecordingTitle(`Uploaded Session ${new Date().toLocaleDateString()}`);
+                          }
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+                
+                {selectedUploadFile && (
+                  <div className="text-sm text-gray-600 py-2 px-3 bg-gray-50 rounded border border-gray-200">
+                    <p className="font-medium">Selected file: {selectedUploadFile.name}</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Size: {Math.round(selectedUploadFile.size / 1024)} KB • Type: {selectedUploadFile.type}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           
           <div className="flex justify-end gap-2">
             <Button variant="outline" onClick={() => setUploadDialogOpen(false)}>
               Cancel
             </Button>
-            <Button
-              disabled={!recordingTitle || textUploadMutation.isPending}
-              onClick={() => {
-                const textarea = document.getElementById('question-details') as HTMLTextAreaElement;
-                if (textarea && recordingTitle) {
-                  handleTextUpload(recordingTitle, textarea.value || "No details provided");
-                  setUploadDialogOpen(false);
-                }
-              }}
-            >
-              {textUploadMutation.isPending ? "Submitting..." : "Submit Question"}
-            </Button>
+            {!showUploadOption ? (
+              <Button
+                disabled={!recordingTitle || textUploadMutation.isPending}
+                onClick={() => {
+                  const textarea = document.getElementById('question-details') as HTMLTextAreaElement;
+                  if (textarea && recordingTitle) {
+                    handleTextUpload(recordingTitle, textarea.value || "No details provided");
+                    setUploadDialogOpen(false);
+                  }
+                }}
+              >
+                {textUploadMutation.isPending ? "Submitting..." : "Submit Question"}
+              </Button>
+            ) : (
+              <Button
+                disabled={!selectedUploadFile || !recordingTitle || uploadMutation.isPending}
+                onClick={() => {
+                  if (selectedUploadFile && recordingTitle) {
+                    handleFileUpload(selectedUploadFile, recordingTitle);
+                    setUploadDialogOpen(false);
+                    setSelectedUploadFile(null);
+                  }
+                }}
+              >
+                {uploadMutation.isPending ? "Uploading..." : "Upload Session"}
+              </Button>
+            )}
           </div>
         </DialogContent>
       </Dialog>
