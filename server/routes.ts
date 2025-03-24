@@ -89,8 +89,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Process the audio file (transcribe and analyze)
       // This would typically be done asynchronously in a production app
       try {
-        // Transcribe the audio
-        const transcript = await transcribeAudio(req.file.buffer);
+        // Transcribe the audio with proper content type
+        console.log(`Processing file with mimetype: ${req.file.mimetype}`);
+        const transcript = await transcribeAudio(req.file.buffer, req.file.mimetype);
         
         // Update the recording with the transcript
         let updatedRecording = await storage.updateRecording(recording.id, {
@@ -179,7 +180,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Audio file not found" });
       }
       
-      res.setHeader("Content-Type", "audio/mpeg");
+      // Determine content type based on file extension
+      let contentType = "audio/mpeg"; // Default
+      
+      if (audioPath.endsWith(".wav") || audioPath.endsWith(".wave")) {
+        contentType = "audio/wav";
+      } else if (audioPath.endsWith(".ogg")) {
+        contentType = "audio/ogg";
+      } else if (audioPath.endsWith(".webm")) {
+        contentType = "audio/webm";
+      } else if (audioPath.endsWith(".flac")) {
+        contentType = "audio/flac";
+      } else if (audioPath.endsWith(".m4a")) {
+        contentType = "audio/m4a";
+      } else if (audioPath.endsWith(".mp4")) {
+        contentType = "audio/mp4";
+      }
+      
+      console.log(`Serving audio file ${audioPath} with content type ${contentType}`);
+      
+      res.setHeader("Content-Type", contentType);
       res.setHeader("Content-Length", audioBuffer.length);
       res.send(audioBuffer);
     } catch (error) {

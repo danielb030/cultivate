@@ -5,13 +5,36 @@ import { Analysis, Transcript, TranscriptSegment } from "@shared/schema";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || "" });
 
 // Transcribe audio function with improved diarization
-export async function transcribeAudio(audioBuffer: Buffer): Promise<Transcript> {
+export async function transcribeAudio(audioBuffer: Buffer, contentType: string = "audio/mp3"): Promise<Transcript> {
   try {
-    // Create a temporary Blob URL for the audio file
-    const blob = new Blob([audioBuffer], { type: "audio/mp3" });
+    // Get file extension from content type or default to mp3
+    let fileExtension = "mp3";
     
-    // Create a File object from the Blob
-    const file = new File([blob], "audio.mp3", { type: "audio/mp3" });
+    // Map mime types to file extensions
+    const mimeToExtension: Record<string, string> = {
+      "audio/mp3": "mp3",
+      "audio/mpeg": "mp3",
+      "audio/wav": "wav",
+      "audio/x-wav": "wav",
+      "audio/webm": "webm",
+      "audio/ogg": "ogg",
+      "audio/flac": "flac",
+      "audio/m4a": "m4a",
+      "audio/mp4": "mp4",
+      "video/mp4": "mp4"
+    };
+    
+    if (contentType && mimeToExtension[contentType]) {
+      fileExtension = mimeToExtension[contentType];
+    }
+    
+    console.log(`Processing audio file as ${contentType} with extension .${fileExtension}`);
+    
+    // Create a temporary Blob with the correct content type
+    const blob = new Blob([audioBuffer], { type: contentType });
+    
+    // Create a File object from the Blob with the correct extension
+    const file = new File([blob], `audio.${fileExtension}`, { type: contentType });
     
     console.log("Starting audio transcription...");
     const transcription = await openai.audio.transcriptions.create({

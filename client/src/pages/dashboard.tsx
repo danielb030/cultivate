@@ -165,8 +165,32 @@ export default function Dashboard() {
 
   const handleSaveRecording = () => {
     if (recordingBlob && recordingTitle) {
-      // Create a File object from the Blob
-      const file = new File([recordingBlob], `${recordingTitle}.mp3`, { type: "audio/mpeg" });
+      // Get appropriate file extension based on blob type
+      let fileExtension = "mp3"; // default
+      const contentType = recordingBlob.type;
+      
+      // Map content types to extensions
+      if (contentType.includes("wav")) {
+        fileExtension = "wav";
+      } else if (contentType.includes("ogg")) {
+        fileExtension = "ogg";
+      } else if (contentType.includes("webm")) {
+        fileExtension = "webm";
+      } else if (contentType.includes("m4a")) {
+        fileExtension = "m4a";
+      } else if (contentType.includes("mp4")) {
+        fileExtension = "mp4";
+      }
+      
+      console.log(`Creating file with extension .${fileExtension} and type ${contentType}`);
+      
+      // Create a File object from the Blob with proper type
+      const file = new File(
+        [recordingBlob], 
+        `${recordingTitle.replace(/[^\w\s.-]/g, '')}.${fileExtension}`, 
+        { type: contentType }
+      );
+      
       uploadMutation.mutate({ file, title: recordingTitle });
     }
   };
@@ -413,7 +437,17 @@ export default function Dashboard() {
                 disabled={!selectedUploadFile || !recordingTitle || uploadMutation.isPending}
                 onClick={() => {
                   if (selectedUploadFile && recordingTitle) {
-                    handleFileUpload(selectedUploadFile, recordingTitle);
+                    // Create a file with the original filename preserved for proper mime type handling
+                    const fileExtension = selectedUploadFile.name.split('.').pop() || 'mp3';
+                    
+                    // Create a new file object that preserves the original file's content type
+                    const preservedFile = new File(
+                      [selectedUploadFile], 
+                      `${recordingTitle.replace(/[^\w\s.-]/g, '')}.${fileExtension}`, 
+                      { type: selectedUploadFile.type }
+                    );
+                    
+                    handleFileUpload(preservedFile, recordingTitle);
                     setUploadDialogOpen(false);
                     setSelectedUploadFile(null);
                   }
@@ -505,10 +539,17 @@ export default function Dashboard() {
                           setRecordingDuration(duration);
                           setRecordingTitle(`Uploaded Session ${new Date().toLocaleDateString()}`);
                           
-                          // Create a blob from the file
+                          // Preserve the original file format
+                          const fileExtension = file.name.split('.').pop() || 'mp3';
+                          
+                          // Create a blob from the file with original content type
                           const reader = new FileReader();
                           reader.onload = (e) => {
-                            const blob = new Blob([e.target?.result as ArrayBuffer], { type: file.type });
+                            // Explicitly set the proper MIME type based on file extension
+                            const mimeType = file.type || `audio/${fileExtension}`;
+                            const blob = new Blob([e.target?.result as ArrayBuffer], { type: mimeType });
+                            
+                            console.log(`Processed file: ${file.name} with type ${mimeType}`);
                             setRecordingBlob(blob);
                             setRecordDialogOpen(false);
                           };
