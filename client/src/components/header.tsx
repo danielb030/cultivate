@@ -23,7 +23,7 @@ export default function Header() {
         <div className="flex items-center">
           <Link href="/" className="flex flex-col items-start">
             <LogoWithText className="text-primary-600" />
-            <span className="text-xs text-neutral-500 ml-10 -mt-1">Be their Guide as well as their Guardian.</span>
+            <span className="text-xs text-neutral-500 ml-10 -mt-1">Be Better. Pursue Better. Excellence as the standard.</span>
           </Link>
         </div>
         
@@ -97,9 +97,9 @@ export default function Header() {
       <Dialog open={helpDialogOpen} onOpenChange={setHelpDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Cultivate: Be their Guide as well as their Guardian.</DialogTitle>
+            <DialogTitle>Cultivate: Establish Permanent Legacy</DialogTitle>
             <DialogDescription>
-              Improve your parenting by analyzing family interactions and gaining valuable insights.
+              Decode and Improve Your Family Communications. Establish Excellence as the Standard.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">

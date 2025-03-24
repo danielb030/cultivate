@@ -192,7 +192,7 @@ export default function Dashboard() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-gray-900">Ask a Question</h3>
                 <p className="mt-2 text-base text-gray-500">
-                  Raise Your Standards for communication and action. Transform your family conversations.
+                  Be Better. Pursue Better. Establish Excellence as the standard for your family communications.
                 </p>
                 <Button 
                   className="mt-6 w-full"
@@ -213,7 +213,7 @@ export default function Dashboard() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-gray-900">Record a Session</h3>
                 <p className="mt-2 text-base text-gray-500">
-                  Raise Your Standards through meaningful dialogue. Transform everyday conversations into growth opportunities.
+                  Decode and Improve Your Family Communications. Establish Permanent Legacy through every conversation.
                 </p>
                 <Button 
                   className="mt-6 w-full"
@@ -254,7 +254,7 @@ export default function Dashboard() {
           <DialogHeader>
             <DialogTitle>Ask a Parenting Question</DialogTitle>
             <p className="text-sm text-gray-500 mt-2">
-              Raise Your Standards for communication and action in your family life.
+              Be Better. Pursue Better. Excellence as the standard for your family life.
             </p>
           </DialogHeader>
           
@@ -376,7 +376,7 @@ export default function Dashboard() {
           <DialogHeader>
             <DialogTitle>Session Options</DialogTitle>
             <p className="text-sm text-gray-500 mt-2">
-              Raise Your Standards by capturing and analyzing meaningful conversations with your children.
+              Decode and Improve Your Family Communications. Establish Permanent Legacy.
             </p>
           </DialogHeader>
           
