@@ -193,7 +193,7 @@ export default function Dashboard() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="mt-6 text-xl font-semibold text-gray-900">Ask a Question</h3>
+                <h3 className="mt-6 text-xl font-semibold text-gray-900">Ask a Question | Upload a Session</h3>
                 <p className="mt-2 text-base text-gray-500">
                   Be Better. Pursue Better. Establish Excellence as the standard for your family communications.
                 </p>
@@ -201,7 +201,7 @@ export default function Dashboard() {
                   className="mt-6 w-full"
                   onClick={() => setUploadDialogOpen(true)}
                 >
-                  Ask a Question
+                  Ask a Question | Upload a Session
                 </Button>
               </div>
             </div>
@@ -251,11 +251,11 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Ask a Question Dialog */}
+      {/* Ask a Question | Upload a Session Dialog */}
       <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>Ask a Parenting Question</DialogTitle>
+            <DialogTitle>Ask a Question | Upload a Session</DialogTitle>
             <p className="text-sm text-gray-500 mt-2">
               Be Better. Pursue Better. Excellence as the standard for your family life.
             </p>
