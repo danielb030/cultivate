@@ -82,7 +82,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         title: parsedData.title,
         duration: parsedData.duration,
         recordedAt: parsedData.recordedAt || new Date(),
-        audioPath,
+        audioPath: audioPath,
         tags: parsedData.tags
       });
 
