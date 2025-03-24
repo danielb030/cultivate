@@ -62,7 +62,7 @@ export function LogoWithText({ className, size = "md" }: LogoProps) {
         <span className={cn("ml-2 text-xs text-neutral-400", {
           "text-xs": size === "sm" || size === "md",
           "text-sm": size === "lg",
-        })}>Excellence as the standard</span>
+        })}>Be their Guide as well as their Guardian</span>
       </div>
     </div>
   );
