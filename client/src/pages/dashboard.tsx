@@ -167,28 +167,29 @@ export default function Dashboard() {
     if (recordingBlob && recordingTitle) {
       // Get appropriate file extension based on blob type
       let fileExtension = "mp3"; // default
-      const contentType = recordingBlob.type;
+      let normalizedContentType = recordingBlob.type;
       
       // Map content types to extensions
-      if (contentType.includes("wav")) {
+      if (normalizedContentType.includes("wav")) {
         fileExtension = "wav";
-      } else if (contentType.includes("ogg")) {
+      } else if (normalizedContentType.includes("ogg")) {
         fileExtension = "ogg";
-      } else if (contentType.includes("webm")) {
+      } else if (normalizedContentType.includes("webm")) {
         fileExtension = "webm";
-      } else if (contentType.includes("m4a")) {
+      } else if (normalizedContentType.includes("m4a") || normalizedContentType.includes("x-m4a")) {
         fileExtension = "m4a";
-      } else if (contentType.includes("mp4")) {
+        normalizedContentType = "audio/m4a"; // Normalize content type
+      } else if (normalizedContentType.includes("mp4")) {
         fileExtension = "mp4";
       }
       
-      console.log(`Creating file with extension .${fileExtension} and type ${contentType}`);
+      console.log(`Creating file with extension .${fileExtension} and type ${normalizedContentType}`);
       
       // Create a File object from the Blob with proper type
       const file = new File(
         [recordingBlob], 
         `${recordingTitle.replace(/[^\w\s.-]/g, '')}.${fileExtension}`, 
-        { type: contentType }
+        { type: normalizedContentType }
       );
       
       uploadMutation.mutate({ file, title: recordingTitle });

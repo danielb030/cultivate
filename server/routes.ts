@@ -71,9 +71,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "No audio file provided" });
       }
 
-      // Save the audio file
+      // Extract file extension from original filename or mimetype
+      let fileExtension = "mp3"; // Default
+      
+      // Try to get extension from original filename
+      if (req.file.originalname) {
+        const nameParts = req.file.originalname.split('.');
+        if (nameParts.length > 1) {
+          fileExtension = nameParts[nameParts.length - 1].toLowerCase();
+        }
+      }
+      
+      // If that didn't work, try to get from mimetype
+      if (fileExtension === "mp3" && req.file.mimetype) {
+        if (req.file.mimetype.includes("wav")) {
+          fileExtension = "wav";
+        } else if (req.file.mimetype.includes("ogg")) {
+          fileExtension = "ogg";
+        } else if (req.file.mimetype.includes("webm")) {
+          fileExtension = "webm";
+        } else if (req.file.mimetype.includes("m4a") || req.file.mimetype.includes("x-m4a")) {
+          fileExtension = "m4a";
+        } else if (req.file.mimetype.includes("mp4")) {
+          fileExtension = "mp4";
+        }
+      }
+      
+      // Create a sanitized filename with the original extension
+      const sanitizedTitle = parsedData.title.replace(/[^\w\s.-]/g, '').replace(/\s+/g, '-');
+      const uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2, 5);
+      const filename = `${uniqueId}-${sanitizedTitle}.${fileExtension}`;
+      
+      console.log(`Saving audio file as ${filename} with mimetype ${req.file.mimetype}`);
+      
+      // Save the audio file with appropriate extension
       const audioPath = await storage.saveAudioFile(
-        req.file.originalname,
+        filename,
         req.file.buffer
       );
 

@@ -20,6 +20,7 @@ export async function transcribeAudio(audioBuffer: Buffer, contentType: string =
       "audio/ogg": "ogg",
       "audio/flac": "flac",
       "audio/m4a": "m4a",
+      "audio/x-m4a": "m4a",
       "audio/mp4": "mp4",
       "video/mp4": "mp4"
     };
@@ -30,11 +31,19 @@ export async function transcribeAudio(audioBuffer: Buffer, contentType: string =
     
     console.log(`Processing audio file as ${contentType} with extension .${fileExtension}`);
     
+    // Standardize content type for m4a files
+    let normalizedContentType = contentType;
+    if (contentType === "audio/x-m4a") {
+      normalizedContentType = "audio/m4a"; // OpenAI expects this format
+    }
+    
+    console.log(`Converting audio with mimetype ${contentType} to normalized type ${normalizedContentType}`);
+    
     // Create a temporary Blob with the correct content type
-    const blob = new Blob([audioBuffer], { type: contentType });
+    const blob = new Blob([audioBuffer], { type: normalizedContentType });
     
     // Create a File object from the Blob with the correct extension
-    const file = new File([blob], `audio.${fileExtension}`, { type: contentType });
+    const file = new File([blob], `audio.${fileExtension}`, { type: normalizedContentType });
     
     console.log("Starting audio transcription...");
     const transcription = await openai.audio.transcriptions.create({
