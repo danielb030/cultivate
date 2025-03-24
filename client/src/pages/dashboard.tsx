@@ -237,7 +237,7 @@ export default function Dashboard() {
             </Link>
             
             <div className="mt-10 text-center">
-              <blockquote className="px-6 py-5 border-l-4 border-primary-500 bg-amber-50 max-w-2xl mx-auto rounded-md shadow-sm">
+              <blockquote className="px-6 py-5 bg-amber-50 max-w-2xl mx-auto rounded-md shadow-sm">
                 <p className="text-base text-amber-800 font-medium italic">
                   "Instead of buying your children all the things you never had, you should teach them all the things you were never taught."
                 </p>
