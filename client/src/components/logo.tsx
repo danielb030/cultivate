@@ -53,11 +53,17 @@ export function LogoWithText({ className, size = "md" }: LogoProps) {
   return (
     <div className={cn("flex items-center", className)}>
       <Logo size={size} />
-      <span className={cn("ml-2 font-bold", {
-        "text-xl": size === "sm",
-        "text-2xl": size === "md",
-        "text-3xl": size === "lg",
-      })}>Cultivate</span>
+      <div className="flex flex-col">
+        <span className={cn("ml-2 font-bold", {
+          "text-xl": size === "sm",
+          "text-2xl": size === "md",
+          "text-3xl": size === "lg",
+        })}>Cultivate</span>
+        <span className={cn("ml-2 text-xs text-neutral-400", {
+          "text-xs": size === "sm" || size === "md",
+          "text-sm": size === "lg",
+        })}>Excellence as the standard</span>
+      </div>
     </div>
   );
 }

@@ -23,7 +23,6 @@ export default function Header() {
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
             <LogoWithText className="text-primary-600" size="sm" />
-            <span className="hidden sm:inline text-xs text-neutral-400 ml-3">Excellence as the standard</span>
           </Link>
         </div>
         
