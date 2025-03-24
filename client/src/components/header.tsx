@@ -100,7 +100,7 @@ export default function Header() {
           <DialogHeader>
             <DialogTitle>Cultivate: Establish Permanent Legacy</DialogTitle>
             <DialogDescription>
-              Decode and Improve Your Family Communications. Establish Excellence as the Standard.
+              Be Better. Pursue Better. Excellence as the standard. Establish Permanent Legacy.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">

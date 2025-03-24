@@ -175,7 +175,7 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Decode and Improve Your Family Communications.
+            Be Better. Pursue Better. Excellence as the standard.
           </h2>
           <p className="mt-2 text-xl text-primary-600 font-semibold">
             Establish Permanent Legacy
@@ -216,7 +216,7 @@ export default function Dashboard() {
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-gray-900">Record a Session</h3>
                 <p className="mt-2 text-base text-gray-500">
-                  Decode and Improve Your Family Communications. Establish Permanent Legacy through every conversation.
+                  Be Better. Pursue Better. Excellence as the standard. Establish Permanent Legacy through every conversation.
                 </p>
                 <Button 
                   className="mt-6 w-full"
@@ -379,7 +379,7 @@ export default function Dashboard() {
           <DialogHeader>
             <DialogTitle>Session Options</DialogTitle>
             <p className="text-sm text-gray-500 mt-2">
-              Decode and Improve Your Family Communications. Establish Permanent Legacy.
+              Be Better. Pursue Better. Excellence as the standard. Establish Permanent Legacy.
             </p>
           </DialogHeader>
           
