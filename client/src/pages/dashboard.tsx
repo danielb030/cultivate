@@ -236,12 +236,12 @@ export default function Dashboard() {
               </svg>
             </Link>
             
-            <div className="mt-10 text-center">
-              <blockquote className="px-6 py-5 bg-amber-50 max-w-2xl mx-auto rounded-md shadow-sm">
-                <p className="text-base text-amber-800 font-medium italic">
+            <div className="mt-12 text-center">
+              <blockquote className="px-8 py-6 bg-gradient-to-r from-amber-50 to-orange-50 max-w-2xl mx-auto rounded-lg">
+                <p className="text-lg text-amber-900 font-medium italic leading-relaxed">
                   "Instead of buying your children all the things you never had, you should teach them all the things you were never taught."
                 </p>
-                <footer className="mt-2 text-sm text-amber-600 font-medium">— Bruce Lee</footer>
+                <footer className="mt-3 text-sm text-amber-700 font-medium">— Bruce Lee</footer>
               </blockquote>
             </div>
           </div>
@@ -503,7 +503,7 @@ export default function Dashboard() {
             }} />
             
             <p className="text-xs text-gray-500 mt-2 text-center">
-              The recording will be analyzed to provide communication insights and suggestions to help raise your standards.
+              The recording will be analyzed to provide communication insights and suggestions to help establish excellence as your standard.
             </p>
           </div>
         </DialogContent>

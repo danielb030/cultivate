@@ -18,22 +18,22 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-white border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+    <header className="bg-white border-b border-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
         <div className="flex items-center">
-          <Link href="/" className="flex flex-col items-start">
-            <LogoWithText className="text-primary-600" />
-            <span className="text-xs text-neutral-500 ml-10 -mt-1">Be Better. Pursue Better. Excellence as the standard.</span>
+          <Link href="/" className="flex items-center">
+            <LogoWithText className="text-primary-600" size="sm" />
+            <span className="hidden sm:inline text-xs text-neutral-400 ml-3">Excellence as the standard</span>
           </Link>
         </div>
         
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item) => (
             <Link 
               key={item.name} 
               href={item.path}
-              className={`text-sm font-medium ${
-                location === item.path ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"
+              className={`text-xs font-medium ${
+                location === item.path ? "text-primary-600" : "text-neutral-500 hover:text-primary-600"
               }`}
             >
               {item.name}
@@ -42,37 +42,39 @@ export default function Header() {
           
           <button 
             onClick={() => setHelpDialogOpen(true)}
-            className="text-sm font-medium text-neutral-600 hover:text-primary-600"
+            className="text-xs font-medium text-neutral-500 hover:text-primary-600"
+            aria-label="Help"
           >
-            <HelpCircle className="h-4 w-4" />
+            <HelpCircle className="h-3.5 w-3.5" />
           </button>
         </nav>
         
         <button
           type="button"
-          className="md:hidden p-1.5 rounded-md text-neutral-500 hover:text-neutral-600 focus:outline-none"
+          className="md:hidden p-1 rounded-md text-neutral-500 hover:text-neutral-600 focus:outline-none"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Menu"
         >
           {mobileMenuOpen ? (
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4" />
           ) : (
-            <Menu className="h-5 w-5" />
+            <Menu className="h-4 w-4" />
           )}
         </button>
       </div>
       
       {/* Mobile menu, show/hide based on menu state */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-neutral-100 py-2">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col space-y-1">
+        <div className="md:hidden border-t border-neutral-50 py-1">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col space-y-0.5">
             {navItems.map((item) => (
               <Link 
                 key={item.name} 
                 href={item.path}
-                className={`px-3 py-2 text-sm font-medium ${
+                className={`px-3 py-1.5 text-xs font-medium ${
                   location === item.path 
                     ? "text-primary-600" 
-                    : "text-neutral-600 hover:text-primary-600"
+                    : "text-neutral-500 hover:text-primary-600"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -80,13 +82,13 @@ export default function Header() {
               </Link>
             ))}
             <button
-              className="px-3 py-2 text-sm font-medium text-neutral-600 hover:text-primary-600 flex items-center"
+              className="px-3 py-1.5 text-xs font-medium text-neutral-500 hover:text-primary-600 flex items-center"
               onClick={() => {
                 setMobileMenuOpen(false);
                 setHelpDialogOpen(true);
               }}
             >
-              <HelpCircle className="h-4 w-4 mr-2" />
+              <HelpCircle className="h-3.5 w-3.5 mr-1.5" />
               Help
             </button>
           </div>
