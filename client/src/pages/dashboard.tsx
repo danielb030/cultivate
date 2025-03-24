@@ -181,7 +181,7 @@ export default function Dashboard() {
             Establish Permanent Legacy
           </p>
           <p className="mt-6 text-lg text-gray-500">
-            Capture, analyze, and enhance your family conversations. Get personalized insights to strengthen your parent-child relationships.
+            Capture, analyze, and enhance family Sessions. Get personalized insights to strengthen your parent-child relationships.
           </p>
           
           <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
