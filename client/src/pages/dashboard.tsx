@@ -235,6 +235,12 @@ export default function Dashboard() {
                 <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </Link>
+            
+            <div className="mt-8 text-center">
+              <p className="text-sm italic text-gray-600 max-w-lg mx-auto">
+                "Instead of buying your children all the things you never had, you should teach them all the things you were never taught." — Bruce Lee
+              </p>
+            </div>
           </div>
         </div>
       </div>
