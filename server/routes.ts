@@ -23,8 +23,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/recordings", async (req: Request, res: Response) => {
     try {
       const recordings = await storage.getAllRecordings();
+      console.log("getAllRecordings returned:", JSON.stringify(recordings, null, 2));
       res.json(recordings);
     } catch (error) {
+      console.error("Error fetching recordings:", error);
       res.status(500).json({ message: "Failed to fetch recordings" });
     }
   });
@@ -111,13 +113,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       );
 
       // Create the recording with the extracted data
-      const recording = await storage.createRecording({
+      const recordingData = {
         title: parsedData.title,
         duration: parsedData.duration,
         recordedAt: parsedData.recordedAt || new Date(),
         audioPath: audioPath,
         tags: parsedData.tags
-      });
+      };
+      console.log("Creating recording with data:", JSON.stringify(recordingData, null, 2));
+      const recording = await storage.createRecording(recordingData);
+      console.log("Created recording:", JSON.stringify(recording, null, 2));
 
       // Process the audio file (transcribe and analyze)
       // This would typically be done asynchronously in a production app
