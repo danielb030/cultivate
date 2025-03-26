@@ -58,11 +58,11 @@ export function LogoWithText({ className, size = "md" }: LogoProps) {
           "text-xl": size === "sm",
           "text-2xl": size === "md",
           "text-3xl": size === "lg",
-        })}>Be Better Pursue Better</span>
+        })}>Cultivate</span>
         <span className={cn("ml-2 text-xs text-neutral-400", {
           "text-xs": size === "sm" || size === "md",
           "text-sm": size === "lg",
-        })}>Excellence as the standard</span>
+        })}>Be their Guide as well as their Guardian</span>
       </div>
     </div>
   );
