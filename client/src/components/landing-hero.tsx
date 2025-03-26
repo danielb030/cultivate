@@ -43,8 +43,8 @@ export function LandingHero({
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 lg:mt-16 lg:px-8 xl:mt-20">
             <div className="sm:text-center lg:text-left">
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                <span className="block">Improve your</span>{" "}
-                <span className="block text-primary-600">parenting journey</span>
+                <span className="block">Be Better</span>{" "}
+                <span className="block text-primary-600">Pursue Better</span>
               </h1>
               <h2 className="mt-2 text-2xl font-bold text-gray-700">
                 <span className="block bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">
@@ -52,7 +52,7 @@ export function LandingHero({
                 </span>
               </h2>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Upload family conversations, receive transcriptions, and get personalized insights to enhance your parenting skills. Learn from every interaction to build a lasting legacy.
+                Leverage family conversations with a growth mindset as a parent, leader, and head of household. Upload, transcribe, record, and analyze family conversations to do better next time.
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">

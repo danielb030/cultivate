@@ -202,7 +202,7 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Leverage Family Conversations
+            Be Better Pursue Better
           </h2>
           <p className="mt-6 text-lg text-gray-500">
             Growth mindset as a parent, leader, and head of household. Upload, transcribe, record, and analyze family conversations to do better next time.
