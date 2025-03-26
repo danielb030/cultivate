@@ -209,50 +209,24 @@ export default function Dashboard() {
           </p>
           
           <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
-            {/* Question Button */}
-            <div className="relative bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-              <div className="p-8">
-                <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-primary-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="mt-6 text-xl font-semibold text-gray-900">Ask a Question | Upload a Session</h3>
-                <p className="mt-2 text-base text-gray-500 mb-10">
-                  Be Better. Pursue Better. Establish Excellence as the standard for your family communications.
-                </p>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <Button 
-                    className="w-full"
-                    onClick={() => setUploadDialogOpen(true)}
-                  >
-                    Upload
-                  </Button>
-                </div>
-              </div>
+            {/* Upload Button */}
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow p-4">
+              <Button 
+                className="w-full"
+                onClick={() => setUploadDialogOpen(true)}
+              >
+                Upload
+              </Button>
             </div>
             
-            {/* Session Button */}
-            <div className="relative bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-              <div className="p-8">
-                <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-primary-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                  </svg>
-                </div>
-                <h3 className="mt-6 text-xl font-semibold text-gray-900">Record a Session</h3>
-                <p className="mt-2 text-base text-gray-500 mb-10">
-                  Be Better. Pursue Better. Excellence as the standard. Establish Permanent Legacy through every conversation.
-                </p>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <Button 
-                    className="w-full"
-                    onClick={() => setRecordDialogOpen(true)}
-                  >
-                    Record
-                  </Button>
-                </div>
-              </div>
+            {/* Record Button */}
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow p-4">
+              <Button 
+                className="w-full"
+                onClick={() => setRecordDialogOpen(true)}
+              >
+                Record
+              </Button>
             </div>
           </div>
           
