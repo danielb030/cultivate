@@ -202,10 +202,10 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Family Conversation Analysis
+            Leverage Family Conversations
           </h2>
           <p className="mt-6 text-lg text-gray-500">
-            Record, upload, and analyze conversations to improve family communication.
+            Growth mindset as a parent, leader, and head of household. Upload, transcribe, record, and analyze family conversations to do better next time.
           </p>
           
           <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
@@ -218,15 +218,17 @@ export default function Dashboard() {
                   </svg>
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-gray-900">Ask a Question | Upload a Session</h3>
-                <p className="mt-2 text-base text-gray-500">
+                <p className="mt-2 text-base text-gray-500 mb-10">
                   Be Better. Pursue Better. Establish Excellence as the standard for your family communications.
                 </p>
-                <Button 
-                  className="mt-6 w-full"
-                  onClick={() => setUploadDialogOpen(true)}
-                >
-                  Ask a Question | Upload a Session
-                </Button>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Button 
+                    className="w-full"
+                    onClick={() => setUploadDialogOpen(true)}
+                  >
+                    Upload
+                  </Button>
+                </div>
               </div>
             </div>
             
@@ -239,15 +241,17 @@ export default function Dashboard() {
                   </svg>
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-gray-900">Record a Session</h3>
-                <p className="mt-2 text-base text-gray-500">
+                <p className="mt-2 text-base text-gray-500 mb-10">
                   Be Better. Pursue Better. Excellence as the standard. Establish Permanent Legacy through every conversation.
                 </p>
-                <Button 
-                  className="mt-6 w-full"
-                  onClick={() => setRecordDialogOpen(true)}
-                >
-                  Start Session
-                </Button>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Button 
+                    className="w-full"
+                    onClick={() => setRecordDialogOpen(true)}
+                  >
+                    Record
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
