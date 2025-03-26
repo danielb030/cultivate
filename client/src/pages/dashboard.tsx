@@ -202,13 +202,10 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Be Better. Pursue Better. Excellence as the standard.
+            Family Conversation Analysis
           </h2>
-          <p className="mt-2 text-xl text-primary-600 font-semibold">
-            Establish Permanent Legacy
-          </p>
           <p className="mt-6 text-lg text-gray-500">
-            Capture, analyze, and enhance family Sessions. Get personalized insights to strengthen your parent-child relationships.
+            Record, upload, and analyze conversations to improve family communication.
           </p>
           
           <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
