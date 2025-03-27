@@ -225,8 +225,16 @@ export default function Dashboard() {
               <Button 
                 className="w-full"
                 onClick={() => setUploadDialogOpen(true)}
+                disabled={uploadMutation.isPending || textUploadMutation.isPending}
               >
-                Upload
+                {uploadMutation.isPending || textUploadMutation.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Upload"
+                )}
               </Button>
             </div>
             
@@ -235,8 +243,16 @@ export default function Dashboard() {
               <Button 
                 className="w-full"
                 onClick={() => setRecordDialogOpen(true)}
+                disabled={uploadMutation.isPending || textUploadMutation.isPending}
               >
-                Record
+                {uploadMutation.isPending || textUploadMutation.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Record"
+                )}
               </Button>
             </div>
           </div>
