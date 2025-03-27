@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { PlusCircle, Cloud, MoreHorizontal, Share2, Edit, Trash2, ChevronDown, AlertCircle } from "lucide-react";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { getAudioDuration } from "@/lib/audio-utils";
@@ -26,6 +26,7 @@ export default function Dashboard() {
   const [showRecorder, setShowRecorder] = useState(false);
   const [showUploadOption, setShowUploadOption] = useState(false);
   const [selectedUploadFile, setSelectedUploadFile] = useState<File | null>(null);
+  const [, navigate] = useLocation();
   const { toast } = useToast();
 
   // Fetch recordings (for functionality only)
@@ -65,7 +66,7 @@ export default function Dashboard() {
       
       return await response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["/api/recordings"] });
       toast({
         title: "Recording uploaded",
@@ -73,6 +74,11 @@ export default function Dashboard() {
       });
       setUploadDialogOpen(false);
       setRecordDialogOpen(false);
+      
+      // Redirect to the recording details page
+      if (data && data.id) {
+        navigate(`/recordings/${data.id}`);
+      }
     },
     onError: (error) => {
       console.error("Upload error:", error);
@@ -102,12 +108,17 @@ export default function Dashboard() {
       
       return await response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["/api/recordings"] });
       toast({
         title: "Transcript analyzed",
         description: "Your conversation transcript has been analyzed successfully.",
       });
+      
+      // Redirect to the recording details page
+      if (data && data.id) {
+        navigate(`/recordings/${data.id}`);
+      }
     },
     onError: (error) => {
       console.error("Text analysis error:", error);
