@@ -263,7 +263,7 @@ export default function Dashboard() {
             <div className="mt-12 text-center">
               <blockquote className="px-8 py-6 bg-gradient-to-r from-amber-50 to-orange-50 max-w-2xl mx-auto rounded-lg">
                 <p className="text-lg text-amber-900 font-medium italic leading-relaxed">
-                  "Instead of buying your children all the things you never had, you should teach them all the things you were never taught."
+                  "Instead of buying your children all the things you never had, teach them all the things you were never taught."
                 </p>
                 <footer className="mt-3 text-sm text-amber-700 font-medium">— Bruce Lee</footer>
               </blockquote>
