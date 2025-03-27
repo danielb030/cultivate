@@ -29,11 +29,16 @@ export function LandingHero({
   const [questionText, setQuestionText] = useState("");
 
   const handleSubmitQuestion = async () => {
-    // In a real implementation, this would send the question to the backend
-    console.log("Question submitted:", { title: questionTitle, question: questionText });
-    setAskQuestionOpen(false);
-    setQuestionTitle("");
-    setQuestionText("");
+    if (questionTitle && questionText) {
+      try {
+        await onTextUpload(questionTitle, questionText);
+        setAskQuestionOpen(false);
+        setQuestionTitle("");
+        setQuestionText("");
+      } catch (error) {
+        console.error("Error submitting question:", error);
+      }
+    }
   };
 
   return (

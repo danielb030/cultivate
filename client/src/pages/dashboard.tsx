@@ -412,7 +412,10 @@ export default function Dashboard() {
                 onClick={() => {
                   const textarea = document.getElementById('question-details') as HTMLTextAreaElement;
                   if (textarea && recordingTitle) {
-                    handleTextUpload(recordingTitle, textarea.value || "No details provided");
+                    textUploadMutation.mutate({ 
+                      title: recordingTitle, 
+                      text: textarea.value || "No details provided" 
+                    });
                     setUploadDialogOpen(false);
                   }
                 }}
