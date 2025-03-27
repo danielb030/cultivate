@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { UploadCloud } from "lucide-react";
+import { UploadCloud, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface UploadAudioProps {
@@ -129,7 +129,12 @@ export function UploadAudio({ onUpload, isUploading = false }: UploadAudioProps)
               className="w-full"
               disabled={!selectedFile || isUploading}
             >
-              {isUploading ? "Uploading..." : "Upload Recording"}
+              {isUploading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Uploading...
+                </>
+              ) : "Upload Recording"}
             </Button>
           </div>
         </form>

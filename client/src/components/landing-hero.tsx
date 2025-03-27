@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Mic, Upload, MessageSquare, FileQuestion } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Mic, Upload, MessageSquare, FileQuestion, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -24,6 +24,12 @@ export function LandingHero({
   onTextUpload,
   isUploading 
 }: LandingHeroProps) {
+  const [isProcessing, setIsProcessing] = useState(isUploading);
+  
+  // Update isProcessing when isUploading changes
+  useEffect(() => {
+    setIsProcessing(isUploading);
+  }, [isUploading]);
   const [askQuestionOpen, setAskQuestionOpen] = useState(false);
   const [questionTitle, setQuestionTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
@@ -31,12 +37,15 @@ export function LandingHero({
   const handleSubmitQuestion = async () => {
     if (questionTitle && questionText) {
       try {
+        setIsProcessing(true);
         await onTextUpload(questionTitle, questionText);
         setAskQuestionOpen(false);
         setQuestionTitle("");
         setQuestionText("");
       } catch (error) {
         console.error("Error submitting question:", error);
+      } finally {
+        setIsProcessing(false);
       }
     }
   };
@@ -213,8 +222,18 @@ export function LandingHero({
             <Button variant="outline" onClick={() => setAskQuestionOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={handleSubmitQuestion} disabled={!questionTitle || !questionText}>
-              Submit Question
+            <Button 
+              onClick={handleSubmitQuestion} 
+              disabled={!questionTitle || !questionText || isProcessing}
+            >
+              {isProcessing ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                "Submit Question"
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>

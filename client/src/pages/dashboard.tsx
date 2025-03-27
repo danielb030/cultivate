@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
-import { PlusCircle, Cloud, MoreHorizontal, Share2, Edit, Trash2, ChevronDown, AlertCircle } from "lucide-react";
+import { PlusCircle, Cloud, MoreHorizontal, Share2, Edit, Trash2, ChevronDown, AlertCircle, Loader2 } from "lucide-react";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { getAudioDuration } from "@/lib/audio-utils";
 import { Button } from "@/components/ui/button";
@@ -420,7 +420,14 @@ export default function Dashboard() {
                   }
                 }}
               >
-                {textUploadMutation.isPending ? "Submitting..." : "Submit Question"}
+                {textUploadMutation.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Submit Question"
+                )}
               </Button>
             ) : (
               <Button
@@ -443,7 +450,14 @@ export default function Dashboard() {
                   }
                 }}
               >
-                {uploadMutation.isPending ? "Uploading..." : "Upload Session"}
+                {uploadMutation.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Upload Session"
+                )}
               </Button>
             )}
           </div>
@@ -486,7 +500,14 @@ export default function Dashboard() {
               disabled={!recordingTitle || uploadMutation.isPending}
               onClick={handleSaveRecording}
             >
-              {uploadMutation.isPending ? "Saving..." : "Save Recording"}
+              {uploadMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                "Save Recording"
+              )}
             </Button>
           </div>
         </DialogContent>
