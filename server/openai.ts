@@ -265,58 +265,154 @@ export async function analyzeTextTranscript(text: string): Promise<Analysis> {
   try {
     console.log("Starting text-based analysis...");
     
-    // First, use AI to structure the raw text into a proper transcript with speakers
-    const structureResponse = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "system",
-          content: `You are an expert in conversation analysis. Given a text that represents a conversation 
-          between a parent and child, structure it into a proper transcript format with speakers labeled as 
-          "Parent" or "Child". If the speaker isn't clear, make your best determination based on context.
-          
-          Respond with a JSON array of segments in the format:
+    // Detect if this is a single question or a conversation
+    const isSingleQuestion = !text.includes("\n") && !text.includes("Parent:") && !text.includes("Child:");
+    
+    if (isSingleQuestion) {
+      console.log("Detected single question format, using direct analysis...");
+      
+      // For single questions, we'll treat it as a parent's question and analyze it directly
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
           {
-            "segments": [
-              {"speaker": "Parent", "text": "..."},
-              {"speaker": "Child", "text": "..."},
-              ...
-            ]
-          }`
+            role: "system",
+            content: `You are an expert in family dynamics, child development, and parenting psychology.
+            Analyze this parenting question and provide thoughtful, evidence-based recommendations.
+            
+            Respond in JSON format with the following structure:
+            {
+              "topics": [{"name": string, "percentage": number}], // Topics related to the question
+              
+              "communicationStyle": {
+                "openEndedQuestions": number, // 0-100 score
+                "activeListening": number, // 0-100 score
+                "emotionalSupport": number, // 0-100 score
+                "patientResponse": number, // 0-100 score
+                "positiveReinforcement": number // 0-100 score
+              },
+              
+              "parentingStyle": {
+                "authoritative": number, // 0-100 score
+                "permissive": number, // 0-100 score
+                "authoritarian": number, // 0-100 score
+                "uninvolved": number // 0-100 score
+              },
+              
+              "growthAreas": [
+                {
+                  "area": string, // Name of improvement area related to the question
+                  "description": string, // Detailed explanation
+                  "priority": "High" | "Medium" | "Low",
+                  "suggestedResources": [string] // 1-3 book titles, websites, or courses
+                }
+              ],
+              
+              "suggestions": [string], // 3-5 actionable, specific suggestions for the parent
+              
+              "longTermImpacts": [string], // 2-3 potential long-term effects on child development
+              
+              "summary": string, // Brief summary addressing the question
+              
+              "tags": [string] // 3-5 tags that categorize the question
+            }`
+          },
+          {
+            role: "user",
+            content: `Parenting Question: ${text}`
+          }
+        ],
+        response_format: { type: "json_object" },
+        max_tokens: 2000
+      });
+      
+      console.log("Direct analysis completed, processing results...");
+      const analysisResult = JSON.parse(response.choices[0].message.content || "{}");
+      
+      // Create the enhanced analysis object for a single question
+      return {
+        topics: analysisResult.topics || [],
+        communicationStyle: {
+          openEndedQuestions: analysisResult.communicationStyle?.openEndedQuestions || 0,
+          activeListening: analysisResult.communicationStyle?.activeListening || 0,
+          emotionalSupport: analysisResult.communicationStyle?.emotionalSupport || 0,
+          patientResponse: analysisResult.communicationStyle?.patientResponse || 0,
+          positiveReinforcement: analysisResult.communicationStyle?.positiveReinforcement || 0
         },
-        {
-          role: "user",
-          content: text
+        parentingStyle: analysisResult.parentingStyle || {
+          authoritative: 0,
+          permissive: 0,
+          authoritarian: 0,
+          uninvolved: 0
+        },
+        sentimentAnalysis: {
+          parent: { positive: 0, neutral: 0, negative: 0 },
+          child: { positive: 0, neutral: 0, negative: 0 }
+        },
+        growthAreas: analysisResult.growthAreas || [],
+        suggestions: analysisResult.suggestions || [],
+        longTermImpacts: analysisResult.longTermImpacts || [],
+        summary: analysisResult.summary || "",
+        tags: analysisResult.tags || [],
+        developmentalInsights: null
+      };
+    } else {
+      // Process as a regular conversation
+      console.log("Processing as a conversation...");
+      
+      // First, use AI to structure the raw text into a proper transcript with speakers
+      const structureResponse = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "system",
+            content: `You are an expert in conversation analysis. Given a text that represents a conversation 
+            between a parent and child, structure it into a proper transcript format with speakers labeled as 
+            "Parent" or "Child". If the speaker isn't clear, make your best determination based on context.
+            
+            Respond with a JSON array of segments in the format:
+            {
+              "segments": [
+                {"speaker": "Parent", "text": "..."},
+                {"speaker": "Child", "text": "..."},
+                ...
+              ]
+            }`
+          },
+          {
+            role: "user",
+            content: text
+          }
+        ],
+        response_format: { type: "json_object" }
+      });
+      
+      const structuredText = JSON.parse(structureResponse.choices[0].message.content || "{}");
+      
+      // Convert the structured text to our transcript format
+      const segments: TranscriptSegment[] = [];
+      
+      if (structuredText.segments) {
+        for (let i = 0; i < structuredText.segments.length; i++) {
+          const segment = structuredText.segments[i];
+          segments.push({
+            id: i + 1,
+            speaker: segment.speaker,
+            text: segment.text,
+            start: i, // Placeholder values since this is a text transcript
+            end: i + 1
+          });
         }
-      ],
-      response_format: { type: "json_object" }
-    });
-    
-    const structuredText = JSON.parse(structureResponse.choices[0].message.content || "{}");
-    
-    // Convert the structured text to our transcript format
-    const segments: TranscriptSegment[] = [];
-    
-    if (structuredText.segments) {
-      for (let i = 0; i < structuredText.segments.length; i++) {
-        const segment = structuredText.segments[i];
-        segments.push({
-          id: i + 1,
-          speaker: segment.speaker,
-          text: segment.text,
-          start: i, // Placeholder values since this is a text transcript
-          end: i + 1
-        });
       }
+      
+      const transcript: Transcript = {
+        text: text,
+        segments: segments
+      };
+      
+      // Use our regular analysis function now that we have a structured transcript
+      return await analyzeTranscript(transcript);
     }
-    
-    const transcript: Transcript = {
-      text: text,
-      segments: segments
-    };
-    
-    // Use our regular analysis function now that we have a structured transcript
-    return await analyzeTranscript(transcript);
   } catch (error: any) {
     console.error("Text analysis error:", error);
     throw new Error("Failed to analyze text: " + (error.message || String(error)));
