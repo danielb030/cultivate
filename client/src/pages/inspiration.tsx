@@ -27,6 +27,22 @@ export default function Inspiration() {
               <p className="text-gray-700 mb-4">
                 While initially daunting, the impact was undeniable. Hearing ourselves objectively, combined with direct feedback, led to dramatic improvements in performance after just a few sessions. It highlighted how reviewing actual interactions, rather than relying on memory or subjective impressions, is a potent catalyst for rapid learning and growth. This experience planted the seed for an application that could bring that same power of recorded reflection and focused critique into other crucial areas of communication, like family life.
               </p>
+              
+              <h3 className="text-xl font-bold text-gray-900 mb-4 mt-6">How We Generated Significant Revenue</h3>
+              <p className="text-gray-700 mb-4">
+                This methodical approach to communication wasn't just educational—it delivered real results. We received purchase orders for our ERP software and services by talking to prospects over the phone only, without in-person meetings. This generated significant revenue for our company by mastering the art of effective communication.
+              </p>
+              
+              <div className="bg-amber-50 p-5 rounded-lg mt-3 mb-5">
+                <h4 className="font-bold text-gray-800 mb-2">Our Structured Process Included:</h4>
+                <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                  <li>A specific list of questions that guided conversations strategically</li>
+                  <li>Listening for certain responses, tone changes, or objections to overcome</li>
+                  <li>Learning to ask open-ended questions (avoiding yes/no responses)</li>
+                  <li>Understanding the power of a pause in speaking—creating space for the other person to reflect and respond</li>
+                  <li>Techniques for identifying buying signals and objection patterns</li>
+                </ul>
+              </div>
             </div>
             
             <div className="mt-10">
@@ -61,10 +77,38 @@ export default function Inspiration() {
             <div className="mt-10">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Applying This to Family Life</h3>
               <p className="text-gray-700 mb-4">
-                Just as these principles revolutionize organizational effectiveness, we believe they can transform family dynamics. By bringing the same level of intentional reflection to our most important relationships, we can accelerate growth as parents and deepen our connections with our children.
+                Just as these principles revolutionize organizational effectiveness, we believe they can transform family dynamics. The same techniques that generate revenue in business can strengthen relationships at home:
               </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <div className="border border-primary-100 bg-primary-50 rounded-md p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2">From Strategic Questions to Meaningful Conversations</h4>
+                  <p className="text-gray-600 text-sm">
+                    Just as we used tailored questions in sales, parents can develop questions that encourage children to open up and share their thoughts and feelings more deeply.
+                  </p>
+                </div>
+                <div className="border border-primary-100 bg-primary-50 rounded-md p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2">From Reading Tone to Emotional Intelligence</h4>
+                  <p className="text-gray-600 text-sm">
+                    Recognizing tone changes and emotional cues in your children helps you respond to their underlying needs, just as we identified buying signals in prospects.
+                  </p>
+                </div>
+                <div className="border border-primary-100 bg-primary-50 rounded-md p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2">From Open-Ended Questions to Deeper Connection</h4>
+                  <p className="text-gray-600 text-sm">
+                    Open-ended questions that invite exploration rather than yes/no answers create space for genuine expression and discovery in family conversations.
+                  </p>
+                </div>
+                <div className="border border-primary-100 bg-primary-50 rounded-md p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2">From Strategic Pauses to Active Listening</h4>
+                  <p className="text-gray-600 text-sm">
+                    The power of a pause—giving your child time to think and express themselves—demonstrates respect and creates space for authentic communication.
+                  </p>
+                </div>
+              </div>
+              
               <p className="text-gray-700">
-                Cultivate was built to make this powerful learning process accessible, private, and tailored to the unique challenges of parent-child communication.
+                Cultivate was built to make this powerful learning process accessible, private, and tailored to the unique challenges of parent-child communication. By bringing the same level of intentional reflection to our most important relationships, we can accelerate growth as parents and deepen our connections with our children.
               </p>
             </div>
           </div>
