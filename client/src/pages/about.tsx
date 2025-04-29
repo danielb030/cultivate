@@ -67,6 +67,60 @@ export default function About() {
                   </p>
                 </div>
               </div>
+              
+              <div className="mt-6 border border-gray-200 rounded-lg p-6 bg-white">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">The Benefits of Learning from Your Interactions</h3>
+                <ul className="text-left space-y-4">
+                  <li className="flex gap-3">
+                    <div className="font-bold text-primary-700">•</div>
+                    <div>
+                      <span className="font-bold">Gain Objective Self-Awareness:</span> Review your own communication style, tone, and reactions in interactions with your children, helping you identify personal habits and areas for growth.
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="font-bold text-primary-700">•</div>
+                    <div>
+                      <span className="font-bold">Understand Your Child's Perspective:</span> See conversations from a different angle, helping you better grasp how your child communicates, perceives situations, and reacts.
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="font-bold text-primary-700">•</div>
+                    <div>
+                      <span className="font-bold">Improve Communication Clarity:</span> Identify moments of misunderstanding or miscommunication more easily, allowing for clearer future interactions.
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="font-bold text-primary-700">•</div>
+                    <div>
+                      <span className="font-bold">Identify Recurring Patterns:</span> Recognize repeated dynamics or communication challenges within family interactions, enabling more targeted efforts for improvement.
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="font-bold text-primary-700">•</div>
+                    <div>
+                      <span className="font-bold">Learn from Difficult Moments:</span> Reflect on challenging conversations or disagreements more dispassionately to understand root causes and find more constructive approaches ("Pain + Reflection = Progress").
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="font-bold text-primary-700">•</div>
+                    <div>
+                      <span className="font-bold">Accelerate Learning and Growth:</span> Speed up the process of understanding family dynamics and improving your parenting communication skills through focused reflection.
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="font-bold text-primary-700">•</div>
+                    <div>
+                      <span className="font-bold">Strengthen Family Bonds:</span> Use the insights gained to foster more empathetic, understanding, and effective communication, leading to stronger relationships.
+                    </div>
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="font-bold text-primary-700">•</div>
+                    <div>
+                      <span className="font-bold">Create a Factual Record for Reflection:</span> Move beyond subjective memories of conversations to review what was actually said and done, providing a more accurate basis for learning.
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           
