@@ -25,7 +25,19 @@ export default function Inspiration() {
                 The core concept for this app stems from a powerful lesson learned decades ago in my first sales role. Our VP of Sales implemented a challenging but effective training method: new salespeople had to record their sales calls. We then brought those tapes into group meetings where our calls were played back and critiqued openly by our peers and the VP.
               </p>
               <p className="text-gray-700 mb-4">
-                While initially daunting, the impact was undeniable. Hearing ourselves objectively, combined with direct feedback, led to dramatic improvements in performance after just a few sessions. It highlighted how reviewing actual interactions, rather than relying on memory or subjective impressions, is a potent catalyst for rapid learning and growth. This experience planted the seed for an application that could bring that same power of recorded reflection and focused critique into other crucial areas of communication, like family life.
+                While initially daunting, the impact was undeniable. Hearing ourselves objectively, combined with direct feedback, led to dramatic improvements in performance after just a few sessions. It highlighted how reviewing actual interactions, rather than relying on memory or subjective impressions, is a potent catalyst for rapid learning and growth.
+              </p>
+              
+              <p className="text-gray-700 mb-4">
+                The low-hanging fruit in this process was simply listening to ourselves. Most people are shocked when they first hear their own voice played back — not just the unfamiliar sound, but the patterns, filler words, and implicit assumptions that become obvious when listening as an observer. This objective perspective alone created immediate opportunities for improvement that would otherwise remain invisible.
+              </p>
+              
+              <p className="text-gray-700 mb-4">
+                What made this approach particularly effective was our focus on the nuances of verbal communication: tone shifts, vocal inflection, volume changes, and speech cadence. By analyzing these elements together, we quickly identified when enthusiasm was lacking, when nervousness crept in, or when we were talking too fast for listeners to absorb information. These subtle cues — often imperceptible to the speaker in the moment — had profound effects on how our messages were received and interpreted.
+              </p>
+              
+              <p className="text-gray-700 mb-4">
+                This experience planted the seed for an application that could bring that same power of recorded reflection and focused critique into other crucial areas of communication, like family life.
               </p>
             </div>
             
