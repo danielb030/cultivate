@@ -11,6 +11,7 @@ import RecordingDetail from "@/pages/recording-detail";
 import Insights from "@/pages/insights";
 import Tips from "@/pages/tips";
 import About from "@/pages/about";
+import Inspiration from "@/pages/inspiration";
 
 function Router() {
   return (
@@ -24,6 +25,7 @@ function Router() {
           <Route path="/insights" component={Insights} />
           <Route path="/tips" component={Tips} />
           <Route path="/about" component={About} />
+          <Route path="/inspiration" component={Inspiration} />
           <Route component={NotFound} />
         </Switch>
       </main>
